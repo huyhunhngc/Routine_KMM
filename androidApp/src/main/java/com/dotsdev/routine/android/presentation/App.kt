@@ -11,8 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTagsAsResourceId
 import com.dotsdev.routine.android.MyApplicationTheme
-import com.dotsdev.routine.android.presentation.AppRoute.homeRoute
 import com.dotsdev.routine.android.presentation.AppRoute.mainRoute
+import com.dotsdev.routine.android.presentation.AppRoute.mainTabRoute
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -32,7 +32,7 @@ fun App(
                 navControllerBottomBar = appState.navControllerBottomBar,
                 onBackClick = {},
                 modifier = Modifier.padding(padding),
-                startDestination = mainRoute,
+                startDestination = mainTabRoute,
             )
         }
     }
