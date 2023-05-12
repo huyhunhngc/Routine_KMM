@@ -34,7 +34,7 @@ fun MainScreen(
         NavHost(
             navController = navControllerBottomBar,
             startDestination = taskRoute,
-            modifier = Modifier,
+            modifier = Modifier.fillMaxSize(),
         ) {
             mainTabGraph(
                 navController = navControllerBottomBar
