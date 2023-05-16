@@ -10,6 +10,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material.icons.filled.Podcasts
 import androidx.compose.material.icons.filled.Task
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -50,14 +52,14 @@ fun BottomNavigationBar(
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 
-    BottomNavigation(
+    NavigationBar(
         modifier = modifier,
-        backgroundColor = colorScheme.background,
+        containerColor = colorScheme.background,
         contentColor = colorScheme.onBackground,
-        elevation = 1.dp,
+        tonalElevation = 1.dp,
     ) {
         items.forEach {
-            BottomNavigationItem(
+            NavigationBarItem(
                 icon = {
                     Icon(
                         imageVector = it.icon,
