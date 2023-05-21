@@ -19,7 +19,7 @@ import com.dotsdev.routine.model.TaskItem
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun HomeAppBar(
+fun HomeAppBar(
     onMenuClick: () -> Unit,
     onMoreClick: () -> Unit,
     onHomeMoreDropdownDismissRequest: () -> Unit,
