@@ -16,13 +16,18 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.dotsdev.routine.android.ui.components.AppLoading
+import com.dotsdev.routine.android.ui.components.EmptyView
 import com.dotsdev.routine.android.ui.components.HomeAppBar
 import kotlinx.coroutines.launch
 
@@ -32,8 +37,20 @@ import kotlinx.coroutines.launch
 )
 @Composable
 fun TaskScreen(
-    taskViewModel: TaskViewModel = hiltViewModel()
+    navigateToAddTaskList: () -> Unit,
+    navigateToEditTaskList: () -> Unit,
+    navigateToAddTask: () -> Unit,
+    onTaskItemClick: (String) -> Unit,
+    onDeleteTaskClick: (String) -> Unit,
+    navigateToSettings: () -> Unit,
+    navigateToAbout: () -> Unit,
+    onTaskItemDoingClick: (String) -> Unit,
+    onTaskItemDoneClick: (String) -> Unit,
+    onTaskListItemClick: (String) -> Unit,
+    onDeleteTaskListClick: () -> Unit,
+    viewModel: TaskViewModel = hiltViewModel()
 ) {
+    val homeUiState by viewModel.homeUiState.collectAsState()
     val scope = rememberCoroutineScope()
     val sheetState = rememberModalBottomSheetState(
         ModalBottomSheetValue.Hidden,
@@ -112,10 +129,10 @@ fun TaskScreen(
                 )
             }
             if (homeUiState.isLoadingTasks) {
-                ToDometerContentLoadingProgress()
+                AppLoading()
             } else {
                 if (homeUiState.tasks.isEmpty()) {
-                    HomeInfoIllustration(
+                    EmptyView(
                         painterResource(ToDometerIllustrations.NoTasks),
                         stringResource(MR.strings.no_tasks)
                     )
