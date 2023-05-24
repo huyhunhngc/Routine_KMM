@@ -26,6 +26,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.dotsdev.routine.android.R
+import com.dotsdev.routine.android.presentation.dialog.DeleteTaskAlertDialog
+import com.dotsdev.routine.android.presentation.dialog.DeleteTaskListAlertDialog
 import com.dotsdev.routine.android.ui.components.AppLoading
 import com.dotsdev.routine.android.ui.components.EmptyView
 import com.dotsdev.routine.android.ui.components.HomeAppBar
@@ -133,7 +136,7 @@ fun TaskScreen(
             } else {
                 if (homeUiState.tasks.isEmpty()) {
                     EmptyView(
-                        painterResource(ToDometerIllustrations.NoTasks),
+                        painterResource(R.drawable.ic_no_tasks),
                         stringResource(MR.strings.no_tasks)
                     )
                 } else {
@@ -161,7 +164,7 @@ fun TaskScreen(
             ) {
                 Icon(
                     Icons.Filled.Add,
-                    contentDescription = stringResource(MR.strings.add_task)
+                    contentDescription = null
                 )
             }
         },
