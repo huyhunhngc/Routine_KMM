@@ -4,6 +4,8 @@ plugins {
     id("com.android.library")
     kotlin("plugin.serialization") version Deps.kotlinVersion
     id("com.squareup.sqldelight")
+    id("org.jetbrains.compose") version "1.4.0"
+    id("dev.icerock.mobile.multiplatform-resources") version "0.22.3"
 }
 
 kotlin {
@@ -32,6 +34,8 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+                api(Deps.mokoResource)
+                api(Deps.mokoResourceCompose)
                 implementation(Deps.ktorCore)
                 implementation(Deps.ktorSerialization)
                 implementation(Deps.ktorSerializationJson)
@@ -53,7 +57,6 @@ kotlin {
                 implementation(Deps.sqlDelightAndroidDriver)
             }
         }
-        val androidTest by getting
         val iosX64Main by getting
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting
@@ -81,4 +84,8 @@ android {
     defaultConfig {
         minSdk = 24
     }
+}
+
+multiplatformResources {
+    multiplatformResourcesPackage = "com.dotsdev.routine.resources"
 }
