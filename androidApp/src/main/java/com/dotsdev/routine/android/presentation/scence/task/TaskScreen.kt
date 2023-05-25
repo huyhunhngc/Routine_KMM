@@ -24,7 +24,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.dotsdev.routine.android.R
 import com.dotsdev.routine.android.presentation.dialog.DeleteTaskAlertDialog
@@ -32,6 +31,8 @@ import com.dotsdev.routine.android.presentation.dialog.DeleteTaskListAlertDialog
 import com.dotsdev.routine.android.ui.components.AppLoading
 import com.dotsdev.routine.android.ui.components.EmptyView
 import com.dotsdev.routine.android.ui.components.HomeAppBar
+import com.dotsdev.routine.resources.MR
+import com.dotsdev.routine.resources.stringResource
 import kotlinx.coroutines.launch
 
 @OptIn(
