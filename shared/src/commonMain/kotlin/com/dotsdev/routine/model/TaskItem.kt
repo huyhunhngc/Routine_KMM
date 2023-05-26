@@ -1,5 +1,9 @@
 package com.dotsdev.routine.model
 
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
+import com.dotsdev.routine.theme.AppColors
+
 data class TaskItem(
     val id: String,
     val title: String,
@@ -19,6 +23,7 @@ data class TaskItem(
             return name
         }
     }
+
     enum class Tag {
         UNSPECIFIED,
         PINK,
@@ -32,8 +37,27 @@ data class TaskItem(
         AMBER,
         ORANGE,
         BROWN,
-        GRAY
-    }
+        GRAY;
 
+        companion object {
+            @Composable
+            fun AppColors.composeColorOf(tag: Tag): Color =
+                when (tag) {
+                    UNSPECIFIED -> Color.Unspecified
+                    PINK -> pink
+                    RED -> red
+                    INDIGO -> indigo
+                    BLUE -> blue
+                    TEAL -> teal
+                    GREEN -> green
+                    LIME -> lime
+                    YELLOW -> yellow
+                    AMBER -> amber
+                    ORANGE -> orange
+                    BROWN -> brown
+                    GRAY -> gray
+                }
+        }
+    }
 }
 
