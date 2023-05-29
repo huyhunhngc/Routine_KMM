@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.DismissDirection
+import androidx.compose.material.DismissState
 import androidx.compose.material.DismissValue
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.FractionalThreshold
@@ -43,7 +44,12 @@ import com.dotsdev.routine.android.util.Alpha.alphaMedium
 import com.dotsdev.routine.model.TaskItem
 import com.dotsdev.routine.resources.stringResource
 import com.dotsdev.routine.theme.AppTheme
-
+import androidx.compose.animation.graphics.ExperimentalAnimationGraphicsApi
+import androidx.compose.animation.graphics.res.animatedVectorResource
+import androidx.compose.animation.graphics.res.rememberAnimatedVectorPainter
+import androidx.compose.animation.graphics.vector.AnimatedImageVector
+import com.dotsdev.routine.android.R
+import com.dotsdev.routine.resources.MR
 @OptIn(ExperimentalMaterialApi::class, ExperimentalFoundationApi::class)
 @Composable
 internal fun SwipeableTaskItem(
@@ -189,17 +195,32 @@ private fun TaskItemSupportingContent(taskItem: TaskItem) {
         if (taskItem.state == TaskItem.TaskState.DOING) {
             taskItem.dueDate?.let { dueDate ->
                 item {
-                    TaskDueDateChip(dueDate, modifier = Modifier.padding(bottom = 8.dp))
+                    //TaskDueDateChip(dueDate, modifier = Modifier.padding(bottom = 8.dp))
                 }
             }
         }
         if (taskItem.totalChecklistItems > 0) {
             item {
-                TaskChecklistItemsChip(taskItem.checklistItemsDone, taskItem.totalChecklistItems)
+                //TaskChecklistItemsChip(taskItem.checklistItemsDone, taskItem.totalChecklistItems)
             }
         }
     }
 }
+
+@OptIn(ExperimentalAnimationGraphicsApi::class, ExperimentalMaterialApi::class)
+@Composable
+fun TaskItemBackgroundIcon(dismissState: DismissState, backgroundIconTint: Color) {
+    val icon = AnimatedImageVector.animatedVectorResource(R.drawable.avd_delete)
+    Icon(
+        painter = rememberAnimatedVectorPainter(
+            icon,
+            atEnd = dismissState.targetValue == DismissValue.DismissedToEnd
+        ),
+        contentDescription = stringResource(MR.strings.delete_task),
+        tint = backgroundIconTint
+    )
+}
+
 
 @Composable
 private fun taskItemTitleColor(state: TaskItem.TaskState): Color =

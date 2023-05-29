@@ -6,6 +6,7 @@ object Deps {
 
     const val composeVersion = "1.4.0-alpha02"
     const val compose3Version = "1.1.0-alpha02"
+    const val composeAnimationVersion = "1.4.3"
     const val composeUi = "androidx.compose.ui:ui:$composeVersion"
     const val composeUiTooling = "androidx.compose.ui:ui-tooling:$composeVersion"
     const val composeUiToolingPreview = "androidx.compose.ui:ui-tooling-preview:$composeVersion"
@@ -13,6 +14,8 @@ object Deps {
     const val composeMaterial = "androidx.compose.material:material:$composeVersion"
     const val compose3Material = "androidx.compose.material3:material3:$compose3Version"
     const val composeIconsExtended = "androidx.compose.material:material-icons-extended:$composeVersion"
+    const val composeAnimation = "androidx.compose.animation:animation:$composeAnimationVersion"
+    const val composeAnimationGraphics = "androidx.compose.animation:animation-graphics:$composeAnimationVersion"
 
     private const val composeNavigationVersion = "2.5.3"
     const val composeNavigation = "androidx.navigation:navigation-compose:$composeNavigationVersion"

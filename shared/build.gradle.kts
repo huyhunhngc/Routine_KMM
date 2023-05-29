@@ -55,6 +55,7 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
+                implementation(compose.animationGraphics)
                 implementation(Deps.ktorAndroid)
                 implementation(Deps.sqlDelightAndroidDriver)
             }

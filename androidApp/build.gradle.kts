@@ -49,6 +49,8 @@ dependencies {
     implementation(Deps.composeFoundation)
     implementation(Deps.composeMaterial)
     implementation(Deps.compose3Material)
+    implementation(Deps.composeAnimation)
+    implementation(Deps.composeAnimationGraphics)
     implementation(Deps.activityCompose)
     implementation(Deps.composeIconsExtended)
     implementation(Deps.composeNavigation)
