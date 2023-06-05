@@ -54,7 +54,20 @@ fun NavGraphBuilder.mainTabGraph(
     navController: NavController
 ) {
     composable(taskRoute) {
-        TaskScreen()
+        TaskScreen(
+            navigateToAddTaskList = {
+
+            },
+            navigateToEditTaskList = {
+
+            },
+            navigateToAddTask = {
+
+            },
+            onTaskItemClick = {
+
+            },
+        )
     }
     composable(calendarRoute) {
 

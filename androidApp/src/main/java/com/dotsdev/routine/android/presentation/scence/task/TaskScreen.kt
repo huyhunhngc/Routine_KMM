@@ -45,13 +45,6 @@ fun TaskScreen(
     navigateToEditTaskList: () -> Unit,
     navigateToAddTask: () -> Unit,
     onTaskItemClick: (String) -> Unit,
-    onDeleteTaskClick: (String) -> Unit,
-    navigateToSettings: () -> Unit,
-    navigateToAbout: () -> Unit,
-    onTaskItemDoingClick: (String) -> Unit,
-    onTaskItemDoneClick: (String) -> Unit,
-    onTaskListItemClick: (String) -> Unit,
-    onDeleteTaskListClick: () -> Unit,
     viewModel: TaskViewModel = hiltViewModel()
 ) {
     val homeUiState by viewModel.homeUiState.collectAsState()
@@ -120,14 +113,16 @@ fun TaskScreen(
             if (deleteTaskAlertDialogState) {
                 DeleteTaskAlertDialog(
                     onDismissRequest = { deleteTaskAlertDialogState = false },
-                    onDeleteTaskClick = { onDeleteTaskClick(selectedTask) }
+                    onDeleteTaskClick = {
+                        viewModel.deleteTask(selectedTask)
+                    }
                 )
             }
             if (deleteTaskListAlertDialogState) {
                 DeleteTaskListAlertDialog(
                     onDismissRequest = { deleteTaskListAlertDialogState = false },
                     onDeleteTaskListClick = {
-                        onDeleteTaskListClick()
+                        viewModel.deleteTaskList()
                         scope.launch { sheetState.hide() }
                     }
                 )
@@ -143,8 +138,12 @@ fun TaskScreen(
                 } else {
                     TasksList(
                         homeUiState.tasks,
-                        onDoingClick = onTaskItemDoingClick,
-                        onDoneClick = onTaskItemDoneClick,
+                        onDoingClick = {
+                            viewModel.setTaskDoing(it)
+                        },
+                        onDoneClick = {
+                            viewModel.setTaskDone(it)
+                        },
                         onTaskItemClick = onTaskItemClick,
                         onTaskItemLongClick = {
                             deleteTaskAlertDialogState = true
