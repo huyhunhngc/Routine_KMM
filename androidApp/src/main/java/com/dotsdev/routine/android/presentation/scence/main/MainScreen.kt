@@ -1,15 +1,11 @@
 package com.dotsdev.routine.android.presentation.scence.main
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.layout.layoutId
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -21,7 +17,6 @@ import com.dotsdev.routine.android.presentation.AppRoute.calendarRoute
 import com.dotsdev.routine.android.presentation.AppRoute.podcastRoute
 import com.dotsdev.routine.android.presentation.AppRoute.taskRoute
 import com.dotsdev.routine.android.presentation.scence.task.TaskScreen
-import kotlin.math.max
 
 @Composable
 fun MainScreen(
@@ -29,24 +24,28 @@ fun MainScreen(
     navControllerBottomBar: NavHostController,
     viewModel: MainViewModel = hiltViewModel()
 ) {
-    Box(
-        modifier = Modifier.fillMaxSize()
-    ) {
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        bottomBar = {
+            BottomNavigationBar(
+                navController = navControllerBottomBar,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .zIndex(1f)
+            )
+        }
+    ) { padding ->
         NavHost(
             navController = navControllerBottomBar,
             startDestination = taskRoute,
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding),
         ) {
             mainTabGraph(
                 navController = navControllerBottomBar
             )
         }
-        BottomNavigationBar(
-            navController = navControllerBottomBar,
-            modifier = Modifier
-                .fillMaxWidth()
-                .zIndex(1f)
-        )
     }
 }
 

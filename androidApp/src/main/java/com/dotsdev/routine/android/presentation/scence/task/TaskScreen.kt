@@ -56,9 +56,6 @@ fun TaskScreen(
     val snackbarHostState = remember { SnackbarHostState() }
 
     val drawerState = rememberDrawerState(DrawerValue.Closed)
-    val closeDrawer: suspend () -> Unit = {
-        drawerState.close()
-    }
 
     var selectedTask by remember { mutableStateOf("") }
     var deleteTaskAlertDialogState by remember { mutableStateOf(false) }
