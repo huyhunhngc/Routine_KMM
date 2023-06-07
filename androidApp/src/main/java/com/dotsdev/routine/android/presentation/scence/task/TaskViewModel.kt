@@ -7,6 +7,7 @@ import com.dotsdev.routine.model.TaskList
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -22,6 +23,12 @@ class TaskViewModel @Inject constructor(): ViewModel() {
 
     private val _homeUiState = MutableStateFlow(HomeUiState(isLoadingTasks = true))
     val homeUiState = _homeUiState.asStateFlow()
+
+    init {
+        _homeUiState.update {
+            it.copy(isLoadingTasks = false)
+        }
+    }
 
     fun deleteTask(id: String) = viewModelScope.launch {
         //deleteTaskUseCase(id)

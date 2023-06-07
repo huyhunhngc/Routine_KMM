@@ -1,15 +1,13 @@
 package com.dotsdev.routine.android.presentation.scence.main
 
 import androidx.annotation.StringRes
-import androidx.compose.material.BottomNavigation
-import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material.icons.filled.Podcasts
 import androidx.compose.material.icons.filled.Task
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.runtime.Composable
@@ -47,7 +45,7 @@ fun BottomNavigationBar(
     modifier: Modifier = Modifier,
     items: List<NavigationItem> = navigationBarItems,
 ) {
-    val colorScheme = MaterialTheme.colors
+    val colorScheme = MaterialTheme.colorScheme
     val typography = MaterialTheme.typography
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
@@ -68,7 +66,7 @@ fun BottomNavigationBar(
                     )
                 },
                 label = {
-                    Text(text = stringResource(it.title), style = typography.body2)
+                    Text(text = stringResource(it.title), style = typography.bodyMedium)
                 },
                 alwaysShowLabel = true,
                 selected = currentRoute == it.route,
