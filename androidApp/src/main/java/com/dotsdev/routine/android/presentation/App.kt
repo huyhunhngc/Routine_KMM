@@ -10,8 +10,6 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTagsAsResourceId
-import com.dotsdev.routine.android.MyApplicationTheme
-import com.dotsdev.routine.android.presentation.AppRoute.mainRoute
 import com.dotsdev.routine.android.presentation.AppRoute.mainTabRoute
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -20,20 +18,18 @@ fun App(
     appState: AppState = rememberAppState()
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
-    MyApplicationTheme {
-        Scaffold(
-            modifier = Modifier.semantics {
-                testTagsAsResourceId = true
-            },
-            snackbarHost = { SnackbarHost(snackbarHostState) },
-        ) { padding ->
-            AppNavHost(
-                navController = appState.navController,
-                navControllerBottomBar = appState.navControllerBottomBar,
-                onBackClick = {},
-                modifier = Modifier.padding(padding),
-                startDestination = mainTabRoute,
-            )
-        }
+    Scaffold(
+        modifier = Modifier.semantics {
+            testTagsAsResourceId = true
+        },
+        snackbarHost = { SnackbarHost(snackbarHostState) },
+    ) { padding ->
+        AppNavHost(
+            navController = appState.navController,
+            navControllerBottomBar = appState.navControllerBottomBar,
+            onBackClick = {},
+            modifier = Modifier.padding(padding),
+            startDestination = mainTabRoute,
+        )
     }
 }
