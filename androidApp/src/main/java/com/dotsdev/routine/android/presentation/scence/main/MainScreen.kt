@@ -13,6 +13,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.dotsdev.routine.android.presentation.AppRoute.addTaskRoute
 import com.dotsdev.routine.android.presentation.AppRoute.calendarRoute
 import com.dotsdev.routine.android.presentation.AppRoute.podcastRoute
 import com.dotsdev.routine.android.presentation.AppRoute.taskRoute
@@ -61,7 +62,7 @@ fun NavGraphBuilder.mainTabGraph(
 
             },
             navigateToAddTask = {
-
+                navController.navigate(addTaskRoute)
             },
             onTaskItemClick = {
 
