@@ -8,13 +8,16 @@ import androidx.compose.material3.Shapes
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import com.dotsdev.routine.android.util.backgroundColor
 import com.dotsdev.routine.theme.AppTheme
 import com.dotsdev.routine.theme.DarkColorScheme
 import com.dotsdev.routine.theme.LightColorScheme
 import com.dotsdev.routine.theme.RoutineDarkColors
 import com.dotsdev.routine.theme.RoutineLightColors
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
 internal fun RoutineAppTheme(
@@ -38,6 +41,18 @@ internal fun RoutineAppTheme(
         medium = RoundedCornerShape(8.dp),
         large = RoundedCornerShape(12.dp)
     )
+    val navigationBarColor = colorScheme.backgroundColor()
+    val systemUiController = rememberSystemUiController()
+    SideEffect {
+        systemUiController.setStatusBarColor(
+            color = colorScheme.background,
+            darkIcons = !darkTheme
+        )
+        systemUiController.setNavigationBarColor(
+            color = navigationBarColor,
+            darkIcons = !darkTheme
+        )
+    }
 
     AppTheme(
         appColors = appThemeColors,

@@ -55,6 +55,7 @@ dependencies {
     implementation(Deps.composeIconsExtended)
     implementation(Deps.composeNavigation)
     implementation(Deps.coilCompose)
+    implementation(Deps.systemUIController)
 
     implementation(Deps.hiltAndroid)
     kapt(Deps.hiltAndroidCompiler)

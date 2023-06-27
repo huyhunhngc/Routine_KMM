@@ -21,14 +21,14 @@ import com.dotsdev.routine.android.presentation.scence.task.TaskScreen
 @Composable
 fun MainScreen(
     navController: NavController,
-    navControllerBottomBar: NavHostController,
+    navControllerMainTab: NavHostController,
     viewModel: MainViewModel = hiltViewModel()
 ) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         bottomBar = {
             BottomNavigationBar(
-                navController = navControllerBottomBar,
+                navController = navControllerMainTab,
                 modifier = Modifier
                     .fillMaxWidth()
                     .zIndex(1f)
@@ -36,14 +36,14 @@ fun MainScreen(
         }
     ) { padding ->
         NavHost(
-            navController = navControllerBottomBar,
+            navController = navControllerMainTab,
             startDestination = taskRoute,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding),
         ) {
             mainTabGraph(
-                navController = navControllerBottomBar
+                navController = navController
             )
         }
     }

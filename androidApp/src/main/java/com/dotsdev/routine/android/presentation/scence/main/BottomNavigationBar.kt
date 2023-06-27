@@ -1,8 +1,8 @@
 package com.dotsdev.routine.android.presentation.scence.main
 
-import androidx.annotation.StringRes
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Icon
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material.icons.filled.Podcasts
@@ -14,23 +14,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.dotsdev.routine.android.R
 import com.dotsdev.routine.android.presentation.AppRoute.calendarRoute
 import com.dotsdev.routine.android.presentation.AppRoute.podcastRoute
 import com.dotsdev.routine.android.presentation.AppRoute.taskRoute
+import com.dotsdev.routine.android.util.backgroundColor
 
 sealed class NavigationItem(
     val route: String,
-    @StringRes val title: Int,
     val icon: ImageVector,
 ) {
-    object HomeTask : NavigationItem(taskRoute, R.string.feed, Icons.Filled.Task)
-    object Calendar : NavigationItem(calendarRoute, R.string.trending, Icons.Filled.CalendarMonth)
-    object Podcast : NavigationItem(podcastRoute, R.string.book_mark, Icons.Filled.Podcasts)
+    object HomeTask : NavigationItem(taskRoute, Icons.Filled.Task)
+    object Calendar : NavigationItem(calendarRoute, Icons.Filled.CalendarMonth)
+    object Podcast : NavigationItem(podcastRoute, Icons.Filled.Podcasts)
 }
 
 val navigationBarItems = listOf(
@@ -46,14 +44,12 @@ fun BottomNavigationBar(
     items: List<NavigationItem> = navigationBarItems,
 ) {
     val colorScheme = MaterialTheme.colorScheme
-    val typography = MaterialTheme.typography
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 
     NavigationBar(
-        modifier = modifier,
-        containerColor = colorScheme.background,
-        contentColor = colorScheme.onBackground,
+        modifier = modifier.height(50.dp),
+        containerColor = colorScheme.backgroundColor(),
         tonalElevation = 1.dp,
     ) {
         items.forEach {
@@ -61,14 +57,13 @@ fun BottomNavigationBar(
                 icon = {
                     Icon(
                         imageVector = it.icon,
-                        contentDescription = stringResource(it.title),
-                        modifier = Modifier
+                        contentDescription = null,
+                        modifier = Modifier,
+                        tint = colorScheme.surfaceTint
                     )
                 },
-                label = {
-                    Text(text = stringResource(it.title), style = typography.bodyMedium)
-                },
-                alwaysShowLabel = true,
+                modifier = Modifier.padding(1.dp),
+                alwaysShowLabel = false,
                 selected = currentRoute == it.route,
                 onClick = {
                     navController.navigate(it.route) {

@@ -23,6 +23,9 @@ object Deps {
     private const val coilComposeVersion = "2.1.0"
     const val coilCompose = "io.coil-kt:coil-compose:$coilComposeVersion"
 
+    private const val systemUIControllerVersion = "0.30.1"
+    const val systemUIController = "com.google.accompanist:accompanist-systemuicontroller:$systemUIControllerVersion"
+
     // KOTLIN DATE TIME
     private const val dateTimeVersion = "0.4.0"
     const val kotlinDateTime = "org.jetbrains.kotlinx:kotlinx-datetime:$dateTimeVersion"
