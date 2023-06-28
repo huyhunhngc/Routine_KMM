@@ -5,6 +5,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -22,6 +23,7 @@ import com.dotsdev.routine.model.TaskItem
 fun HomeAppBar(
     onMenuClick: () -> Unit,
     onMoreClick: () -> Unit,
+    onSettingClick: () -> Unit,
     onHomeMoreDropdownDismissRequest: () -> Unit,
     homeMoreDropdownExpanded: Boolean,
     onEditTaskListClick: () -> Unit,
@@ -42,7 +44,13 @@ fun HomeAppBar(
                 IconButton(onClick = onMoreClick) {
                     Icon(
                         Icons.Filled.MoreVert,
-                        contentDescription = ""
+                        contentDescription = null
+                    )
+                }
+                IconButton(onClick = onSettingClick) {
+                    Icon(
+                        Icons.Filled.Settings,
+                        contentDescription = null
                     )
                 }
                 HomeMoreDropdownMenu(
