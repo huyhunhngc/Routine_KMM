@@ -9,7 +9,7 @@ import com.dotsdev.routine.android.util.Alpha.disabled
 object Alpha {
     const val High: Float = 1f
     private const val Medium: Float = 0.6f
-    private const val Disabled: Float = 0.2f
+    const val Disabled: Float = 0.2f
 
     val Color.alphaMedium
         @Composable

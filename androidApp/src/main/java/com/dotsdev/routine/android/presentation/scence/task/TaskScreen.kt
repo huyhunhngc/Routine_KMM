@@ -74,6 +74,7 @@ fun TaskScreen(
             HomeAppBar(
                 onMenuClick = { scope.launch { drawerState.open() } },
                 onMoreClick = { homeMoreDropdownExpanded = true },
+                onSettingClick = {},
                 onHomeMoreDropdownDismissRequest = { homeMoreDropdownExpanded = false },
                 homeMoreDropdownExpanded = homeMoreDropdownExpanded,
                 onEditTaskListClick = {

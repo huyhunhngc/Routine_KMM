@@ -10,8 +10,10 @@ import androidx.navigation.compose.composable
 import com.dotsdev.routine.android.presentation.AppRoute.addTaskRoute
 import com.dotsdev.routine.android.presentation.AppRoute.mainRoute
 import com.dotsdev.routine.android.presentation.AppRoute.mainTabRoute
+import com.dotsdev.routine.android.presentation.AppRoute.settings
 import com.dotsdev.routine.android.presentation.scence.main.MainScreen
 import com.dotsdev.routine.android.presentation.scence.main.mainTabGraph
+import com.dotsdev.routine.android.presentation.scence.settings.SettingsScreen
 import com.dotsdev.routine.android.presentation.scence.task.TaskScreen
 import com.dotsdev.routine.android.presentation.scence.task.addtask.AddTaskScreen
 
@@ -33,6 +35,9 @@ fun AppNavHost(
         }
         composable(addTaskRoute) {
             AddTaskScreen()
+        }
+        composable(settings) {
+            SettingsScreen(navController)
         }
     }
 }

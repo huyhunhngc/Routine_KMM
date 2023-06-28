@@ -7,4 +7,5 @@ object AppRoute {
     const val mainTabRoute = "main_tab_route"
     const val calendarRoute = "feed_route"
     const val addTaskRoute = "add_task_route"
+    const val settings = "settings"
 }
