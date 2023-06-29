@@ -44,6 +44,7 @@ fun TaskScreen(
     navigateToAddTaskList: () -> Unit,
     navigateToEditTaskList: () -> Unit,
     navigateToAddTask: () -> Unit,
+    navigateToSettings: () -> Unit,
     onTaskItemClick: (String) -> Unit,
     viewModel: TaskViewModel = hiltViewModel()
 ) {
@@ -54,17 +55,14 @@ fun TaskScreen(
         skipHalfExpanded = true
     )
     val snackbarHostState = remember { SnackbarHostState() }
-
     val drawerState = rememberDrawerState(DrawerValue.Closed)
 
     var selectedTask by remember { mutableStateOf("") }
     var deleteTaskAlertDialogState by remember { mutableStateOf(false) }
     var deleteTaskListAlertDialogState by remember { mutableStateOf(false) }
-
-    val defaultTaskListName = stringResource(MR.strings.default_task_list_name)
-
     var homeMoreDropdownExpanded by remember { mutableStateOf(false) }
 
+    val defaultTaskListName = stringResource(MR.strings.default_task_list_name)
     val cannotEditTaskList = stringResource(MR.strings.cannot_edit_this_task_list)
     val cannotDeleteTaskList = stringResource(MR.strings.cannot_delete_this_task_list)
     val snackbarActionLabel = stringResource(MR.strings.ok)
@@ -74,7 +72,7 @@ fun TaskScreen(
             HomeAppBar(
                 onMenuClick = { scope.launch { drawerState.open() } },
                 onMoreClick = { homeMoreDropdownExpanded = true },
-                onSettingClick = {},
+                onSettingClick = navigateToSettings,
                 onHomeMoreDropdownDismissRequest = { homeMoreDropdownExpanded = false },
                 homeMoreDropdownExpanded = homeMoreDropdownExpanded,
                 onEditTaskListClick = {
