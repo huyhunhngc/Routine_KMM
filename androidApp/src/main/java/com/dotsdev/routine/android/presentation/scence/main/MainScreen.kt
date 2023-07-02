@@ -18,6 +18,7 @@ import com.dotsdev.routine.android.presentation.AppRoute.calendarRoute
 import com.dotsdev.routine.android.presentation.AppRoute.podcastRoute
 import com.dotsdev.routine.android.presentation.AppRoute.settings
 import com.dotsdev.routine.android.presentation.AppRoute.taskRoute
+import com.dotsdev.routine.android.presentation.scence.calendar.CalendarScreen
 import com.dotsdev.routine.android.presentation.scence.task.TaskScreen
 
 @Composable
@@ -74,7 +75,7 @@ fun NavGraphBuilder.mainTabGraph(
         )
     }
     composable(calendarRoute) {
-
+        CalendarScreen()
     }
     composable(podcastRoute) {
 

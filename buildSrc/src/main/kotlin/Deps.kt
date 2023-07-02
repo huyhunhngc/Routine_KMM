@@ -1,4 +1,7 @@
 object Deps {
+    //MATERIAL
+    private const val materialVersion = "1.9.0"
+    const val material = "com.google.android.material:material:$materialVersion"
 
     // COMPOSE
     private const val activityComposeVersion = "1.6.1"

@@ -72,7 +72,7 @@ fun SettingsScreen(
                     modifier = Modifier.fillMaxWidth(),
                     columns = GridCells.Adaptive(minSize = 96.dp)
                 ) {
-                    items(enumValues<AppThemeType>()) {
+                    items(AppThemeType.values()) {
                         AppThemeTypeItem(
                             it, onClick = { viewModel.setAppTheme(it) }, it == appThemeType
                         )
