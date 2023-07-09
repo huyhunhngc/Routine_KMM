@@ -3,7 +3,6 @@ package com.dotsdev.routine.android.theme
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.MaterialTheme.typography
 import androidx.compose.material3.Shapes
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
@@ -17,6 +16,7 @@ import com.dotsdev.routine.theme.DarkColorScheme
 import com.dotsdev.routine.theme.LightColorScheme
 import com.dotsdev.routine.theme.RoutineDarkColors
 import com.dotsdev.routine.theme.RoutineLightColors
+import com.dotsdev.routine.theme.Type.typography
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable

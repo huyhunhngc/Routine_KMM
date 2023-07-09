@@ -89,8 +89,14 @@ object Deps {
     private const val rulesVersion = "1.5.0"
     const val rules = "androidx.test:rules:$rulesVersion"
 
+    // MOKO resoures for KMM
     private const val mokoResourceVersion = "0.22.0"
     const val mokoResource = "dev.icerock.moko:resources:$mokoResourceVersion"
     const val mokoResourceCompose = "dev.icerock.moko:resources-compose:$mokoResourceVersion"
     const val pluginMoko = "dev.icerock.mobile.multiplatform-resources"
+
+    // DataStore
+    const val dataStoreVersion = "1.1.0-alpha04"
+    const val dataStore = "androidx.datastore:datastore-preferences:$dataStoreVersion"
+    const val dataStoreCore = "androidx.datastore:datastore-preferences-core:$dataStoreVersion"
 }

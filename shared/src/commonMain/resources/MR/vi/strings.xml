@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="app_name">Quy trình</string>
+
+    <string name="task">Nhiệm vụ</string>
+    <string name="tasks">Nhiệm vụ</string>
+    <string name="task">Nhiệm vụ</string>
+    <string name="tasks">Nhiệm vụ</string>
+    <string name="task_list">Danh sách nhiệm vụ</string>
+    <string name="task_lists">Danh sách nhiệm vụ</string>
+    <string name="title">Tiêu đề</string>
+    <string name="name">Tên</string>
+    <string name="description">Mô tả</string>
+    <string name="no_description">Không có mô tả</string>
+    <string name="save">Lưu</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Hủy</string>
+    <string name="delete_task">Xóa nhiệm vụ</string>
+    <string name="delete_task_question">Bạn có muốn xóa tác vụ này không?</string>
+    <string name="delete_task_list">Xóa danh sách tác vụ</string>
+    <string name="delete_task_list_question">Tất cả nhiệm vụ trong danh sách nhiệm vụ này sẽ bị xóa. Bạn có
+        muốn tiếp tục?
+    </string>
+    <string name="add">Thêm</string>
+    <string name="add_task">Thêm nhiệm vụ</string>
+    <string name="add_task_list">Thêm danh sách nhiệm vụ</string>
+    <string name="edit_task">Chỉnh sửa tác vụ</string>
+    <string name="edit_task_list">Chỉnh sửa danh sách nhiệm vụ</string>
+    <string name="settings">Cài đặt</string>
+    <string name="theme">Chủ đề</string>
+    <string name="choose_theme">Chọn chủ đề</string>
+    <string name="follow_system">Theo dõi hệ thống</string>
+    <string name="light_theme">Ánh sáng</string>
+    <string name="dark_theme">Bóng tối</string>
+    <string name="about">Giới thiệu</string>
+    <string name="open_source_licenses">Giấy phép nguồn mở</string>
+    <string name="privacy_policy">Chính sách bảo mật</string>
+    <string name="enter_task_name">Nhập tên Nhiệm vụ</string>
+    <string name="enter_description">Nhập Mô tả (tùy chọn)</string>
+    <string name="enter_date_time">Nhập ngày giờ (tùy chọn)</string>
+    <string name="enter_task_list_name">Nhập tên danh sách Nhiệm vụ</string>
+    <string name="choose_tag">Chọn Thẻ</string>
+    <string name="field_not_empty">Trường không được để trống</string>
+    <string name="github">GitHub</string>
+    <string name="default_task_list_name">Nhiệm vụ của tôi</string>
+    <string name="no_tasks">Bạn chưa thêm nhiệm vụ nào</string>
+    <string name="no_pending_tasks">Bạn không có nhiệm vụ nào để làm</string>
+    <string name="no_task_lists">Có bất kỳ danh sách nhiệm vụ nào</string>
+    <string name="you_have_not_any_task_list">Bạn không có danh sách nhiệm vụ nào</string>
+    <string name="completed_tasks">Đã hoàn thành (%1$d)</string>
+    <string name="you_have_completed_all_tasks">Bạn đã hoàn thành tất cả nhiệm vụ</string>
+    <string name="congratulations">Xin chúc mừng!</string>
+    <string name="date_time">Ngày giờ</string>
+    <string name="clear">Xóa</string>
+    <string name="task_title_input">Tên nhiệm vụ</string>
+    <string name="task_list_name_input">Tên danh sách nhiệm vụ</string>
+    <string name="checklist">Danh sách kiểm tra</string>
+    <string name="add_element">Thêm phần tử</string>
+    <string name="add_element_Option">Thêm phần tử (không bắt buộc)</string>
+    <string name="cannot_delete_this_task_list">Không thể xóa danh sách tác vụ mặc định</string>
+    <string name="cannot_edit_this_task_list">Không thể chỉnh sửa danh sách tác vụ mặc định</string>
+
+    <string name="privacy_policy_user_data">Dữ liệu người dùng</string>
+    <string name="privacy_policy_user_data_body">
+        Ứng dụng không lưu trữ bất kỳ dữ liệu nào của người dùng trên
+        bất kỳ máy chủ nào vì nó là một ứng dụng chạy trong môi trường cục bộ
+        mà không cần kết nối. Không có dữ liệu người dùng nào được thu thập, chuyển giao hoặc tiết lộ.
+    </string>
+    <string name="privacy_policy_permissions">Quyền</string>
+    <string name="privacy_policy_permissions_body">
+        Hệ thống không yêu cầu người dùng cấp quyền định vị hay gọi, nhắn tin quyền hạn.
+    </string>
+    <string name="privacy_policy_device_and_network_abuse">Lạm dụng thiết bị và mạng</string>
+    <string name="privacy_policy_device_and_network_abuse_body">
+        Hệ thống không chặn hay can thiệp vào ứng dụng khác hiển thị quảng cáo.
+        Nó không cung cấp hoặc cung cấp hướng dẫn về cách hack dịch vụ, phần mềm hoặc phần cứng,
+        hoặc bỏ qua các biện pháp bảo vệ an ninh. Bạn không truy cập hoặc sử dụng dịch vụ hoặc API theo cách vi phạm điều khoản dịch vụ của nó.
+    </string>
+    <string name="privacy_policy_public">Công khai</string>
+    <string name="privacy_policy_public_body">
+        Hệ thống có thể được sử dụng bởi những người trên 3 tuổi. Nó không chứa tài liệu bạo lực,
+        tài liệu tình dục, hoặc ngôn ngữ xúc phạm.
+        Không chứa quảng cáo. Thông tin nhạy cảm cho trẻ vị thành niên không được thu thập.
+    </string>
+    <string name="menu">Menu</string>
+    <string name="more">Thêm</string>
+    <string name="back">Quay lại</string>
+    <string name="check_task">Kiểm tra nhiệm vụ</string>
+    <string name="uncheck_task">Bỏ chọn nhiệm vụ</string>
+    <string name="selected">Đã chọn</string>
+    <string name="discard_task_alert_dialog_title">Hủy nhiệm vụ</string>
+    <string name="discard_task_alert_dialog_body">
+        Bạn có chắc không? Nếu bạn thoát khỏi quy trình hiện tại mà không lưu, bạn sẽ mất thông tin đã nhập.
+    </string>
+</resources>
