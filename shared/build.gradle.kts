@@ -38,11 +38,6 @@ kotlin {
                 api(Deps.mokoResourceCompose)
                 implementation(compose.material)
                 implementation(compose.material3)
-                implementation(Deps.ktorCore)
-                implementation(Deps.ktorSerialization)
-                implementation(Deps.ktorSerializationJson)
-                implementation(Deps.sqlDelightRuntime)
-                implementation(Deps.sqlDelightCoroutinesExtensions)
                 implementation(Deps.kotlinDateTime)
                 implementation(Deps.dataStoreCore)
             }

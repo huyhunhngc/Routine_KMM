@@ -34,7 +34,7 @@ object Deps {
     const val kotlinDateTime = "org.jetbrains.kotlinx:kotlinx-datetime:$dateTimeVersion"
 
     // HILT
-    private const val hiltVersion = "2.42"
+    const val hiltVersion = "2.44"
     private const val hiltCompilerVersion = "1.0.0"
     const val hiltAndroid = "com.google.dagger:hilt-android:$hiltVersion"
     const val hiltAndroidCompiler = "com.google.dagger:hilt-android-compiler:$hiltVersion"

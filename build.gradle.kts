@@ -15,7 +15,7 @@ buildscript {
         classpath(Deps.androidBuildTools)
         classpath(Deps.sqlDelightGradlePlugin)
         classpath(Deps.hiltGradlePlugin)
-        classpath("dev.icerock.moko:resources-generator:0.22.3")
+        classpath("dev.icerock.moko:resources-generator:0.23.0")
     }
 }
 apply(plugin = "dev.icerock.mobile.multiplatform-resources")

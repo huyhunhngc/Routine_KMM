@@ -2,8 +2,8 @@ plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("plugin.serialization") version Deps.kotlinVersion
-    id("dagger.hilt.android.plugin")
-    id("kotlin-kapt")
+    kotlin("kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -63,7 +63,10 @@ dependencies {
     kapt(Deps.hiltCompiler)
     implementation(Deps.hiltNavigationCompose)
 
-    implementation(Deps.ktorAndroid)
+    implementation(Deps.dataStoreCore)
+    implementation(Deps.dataStore)
+
+    implementation("com.google.accompanist:accompanist-navigation-animation:0.28.0")
 
     androidTestImplementation(Deps.testRunner)
     androidTestImplementation(Deps.jUnit)
