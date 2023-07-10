@@ -72,6 +72,10 @@ internal fun RoutineApp(
             color = colorScheme.background,
             darkIcons = !darkTheme
         )
+        systemUiController.setNavigationBarColor(
+            color = navigationBarColor,
+            darkIcons = !darkTheme
+        )
     }
 
     val scope = rememberCoroutineScope()
