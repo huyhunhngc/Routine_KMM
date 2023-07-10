@@ -4,7 +4,6 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavBackStackEntry
@@ -26,7 +25,6 @@ fun AppNavHost(
     navControllerBottomBar: NavHostController,
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
-    darkTheme: Boolean = isSystemInDarkTheme(),
     onStartMainFlow: () -> Unit,
     onStopMainFlow: () -> Unit,
     startDestination: String = mainTabRoute,
@@ -38,7 +36,6 @@ fun AppNavHost(
     ) {
         composable(mainTabRoute) {
             MainScreen(
-                darkTheme = darkTheme,
                 onStart = onStartMainFlow,
                 onStop = onStopMainFlow,
                 navController = navController,
@@ -61,8 +58,18 @@ fun NavGraphBuilder.composableAnimated(
 ) {
     composable(
         route = route,
-        enterTransition = { slideInHorizontally(initialOffsetX = { it }, animationSpec = tween(300)) },
-        exitTransition = { slideOutHorizontally(targetOffsetX = { it }, animationSpec = tween(300)) }
+        enterTransition = {
+            slideInHorizontally(
+                initialOffsetX = { it },
+                animationSpec = tween(300)
+            )
+        },
+        exitTransition = {
+            slideOutHorizontally(
+                targetOffsetX = { it },
+                animationSpec = tween(300)
+            )
+        }
     ) {
         content(it)
     }

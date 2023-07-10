@@ -1,14 +1,11 @@
 package com.dotsdev.routine.android.presentation.scence.main
 
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
@@ -30,12 +27,9 @@ import com.dotsdev.routine.android.presentation.AppRoute.settings
 import com.dotsdev.routine.android.presentation.AppRoute.taskRoute
 import com.dotsdev.routine.android.presentation.scence.calendar.CalendarScreen
 import com.dotsdev.routine.android.presentation.scence.task.TaskScreen
-import com.dotsdev.routine.android.util.backgroundColor
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
 fun MainScreen(
-    darkTheme: Boolean = isSystemInDarkTheme(),
     lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current,
     onStart: () -> Unit,
     onStop: () -> Unit,

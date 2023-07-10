@@ -119,8 +119,7 @@ internal fun RoutineApp(
                                 darkIcons = !darkTheme
                             )
                         }
-                    },
-                    darkTheme = darkTheme
+                    }
                 )
             }
         }
