@@ -20,6 +20,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.compose.ui.unit.dp
@@ -67,6 +68,12 @@ internal fun RoutineApp(
     )
     val navigationBarColor = colorScheme.backgroundColor()
     val systemUiController = rememberSystemUiController()
+    val keyboardController = LocalSoftwareKeyboardController.current
+    val navigateBackAction: () -> Unit = {
+        keyboardController?.hide()
+        appState.navigateBack()
+    }
+    val scope = rememberCoroutineScope()
     SideEffect {
         systemUiController.setStatusBarColor(
             color = colorScheme.background,
@@ -78,8 +85,6 @@ internal fun RoutineApp(
         )
     }
 
-    val scope = rememberCoroutineScope()
-
     AppTheme(
         appColors = appThemeColors,
         colorScheme = colorScheme,
@@ -90,18 +95,18 @@ internal fun RoutineApp(
             modifier = Modifier.fillMaxSize(),
             color = colorScheme.background
         ) {
-            val snackbarHostState = remember { SnackbarHostState() }
+            val snackBarHostState = remember { SnackbarHostState() }
             Scaffold(
                 modifier = Modifier
                     .semantics { testTagsAsResourceId = true }
                     .fillMaxSize(),
                 backgroundColor = colorScheme.background,
-                snackbarHost = { SnackbarHost(snackbarHostState) },
+                snackbarHost = { SnackbarHost(snackBarHostState) },
             ) { padding ->
                 AppNavHost(
                     navController = appState.navController,
                     navControllerBottomBar = appState.navControllerBottomBar,
-                    onBackClick = {},
+                    onBackClick = navigateBackAction,
                     modifier = Modifier.padding(padding),
                     startDestination = AppRoute.mainTabRoute,
                     onStartMainFlow = {

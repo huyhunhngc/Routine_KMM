@@ -43,10 +43,10 @@ fun AppNavHost(
             )
         }
         composableAnimated(addTaskRoute) {
-            AddTaskScreen()
+            AddTaskScreen(onBackClick)
         }
         composableAnimated(settings) {
-            SettingsScreen(navController)
+            SettingsScreen(onBackClick)
         }
     }
 }

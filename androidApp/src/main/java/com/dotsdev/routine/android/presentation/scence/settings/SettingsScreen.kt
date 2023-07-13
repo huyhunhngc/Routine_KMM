@@ -35,7 +35,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import com.dotsdev.routine.android.util.Alpha
 import com.dotsdev.routine.model.preferences.AppThemeType
 import com.dotsdev.routine.resources.MR
@@ -44,21 +43,26 @@ import com.dotsdev.routine.resources.stringResource
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(
-    navController: NavController, viewModel: SettingsViewModel = hiltViewModel()
+    onBackClick: () -> Unit,
+    viewModel: SettingsViewModel = hiltViewModel()
 ) {
     val appThemeType by viewModel.appTheme.collectAsState()
-    Scaffold(topBar = {
-        CenterAlignedTopAppBar(navigationIcon = {
-            IconButton(onClick = { navController.navigateUp() }) {
-                Icon(
-                    Icons.Filled.ArrowBack,
-                    contentDescription = stringResource(MR.strings.back)
-                )
-            }
-        }, title = {
-            Text(stringResource(MR.strings.settings))
-        })
-    }) { paddingValues ->
+    Scaffold(
+        topBar = {
+            CenterAlignedTopAppBar(
+                navigationIcon = {
+                    IconButton(onClick = onBackClick) {
+                        Icon(
+                            Icons.Filled.ArrowBack,
+                            contentDescription = stringResource(MR.strings.back)
+                        )
+                    }
+                },
+                title = {
+                    Text(stringResource(MR.strings.settings))
+                }
+            )
+        }) { paddingValues ->
         Column(modifier = Modifier.padding(paddingValues)) {
             Column(
                 modifier = Modifier

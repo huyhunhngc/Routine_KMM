@@ -26,8 +26,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.dotsdev.routine.android.R
-import com.dotsdev.routine.android.presentation.dialog.DeleteTaskAlertDialog
-import com.dotsdev.routine.android.presentation.dialog.DeleteTaskListAlertDialog
+import com.dotsdev.routine.android.ui.dialog.DeleteTaskAlertDialog
+import com.dotsdev.routine.android.ui.dialog.DeleteTaskListAlertDialog
 import com.dotsdev.routine.android.ui.components.AppLoading
 import com.dotsdev.routine.android.ui.components.EmptyView
 import com.dotsdev.routine.android.ui.components.HomeAppBar

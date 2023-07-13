@@ -1,4 +1,4 @@
-package com.dotsdev.routine.android.presentation.dialog
+package com.dotsdev.routine.android.ui.dialog
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Warning
