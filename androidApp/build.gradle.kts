@@ -66,7 +66,7 @@ dependencies {
     implementation(Deps.dataStoreCore)
     implementation(Deps.dataStore)
 
-    implementation("com.google.accompanist:accompanist-navigation-animation:0.28.0")
+    implementation(Deps.navigationAnimation)
 
     androidTestImplementation(Deps.testRunner)
     androidTestImplementation(Deps.jUnit)

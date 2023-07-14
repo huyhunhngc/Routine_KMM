@@ -8,7 +8,7 @@ object Deps {
     const val activityCompose = "androidx.activity:activity-compose:$activityComposeVersion"
 
     const val composeVersion = "1.4.0-alpha02"
-    const val compose3Version = "1.1.0-alpha02"
+    const val compose3Version = "1.1.0-alpha07"
     const val composeAnimationVersion = "1.4.3"
     const val composeUi = "androidx.compose.ui:ui:$composeVersion"
     const val composeUiTooling = "androidx.compose.ui:ui-tooling:$composeVersion"
@@ -28,6 +28,9 @@ object Deps {
 
     private const val systemUIControllerVersion = "0.30.1"
     const val systemUIController = "com.google.accompanist:accompanist-systemuicontroller:$systemUIControllerVersion"
+
+    private const val navigationAnimationVersion = "0.28.0"
+    const val navigationAnimation ="com.google.accompanist:accompanist-navigation-animation:$navigationAnimationVersion"
 
     // KOTLIN DATE TIME
     private const val dateTimeVersion = "0.4.0"
