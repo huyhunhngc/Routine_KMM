@@ -39,6 +39,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.dotsdev.routine.android.ui.components.AppTitledTextField
 import com.dotsdev.routine.android.ui.components.DoneActionAppBar
 import com.dotsdev.routine.android.ui.components.TagSelector
+import com.dotsdev.routine.android.ui.dialog.DateTimeSelector
 import com.dotsdev.routine.android.util.Alpha.alphaMedium
 import com.dotsdev.routine.model.TaskItem
 import com.dotsdev.routine.resources.MR
@@ -114,16 +115,30 @@ fun AddTaskScreen(
                     )
                 }
                 item {
+                    AppTitledTextField(
+                        title = stringResource(MR.strings.description),
+                        value = taskDescription,
+                        onValueChange = { taskDescription = it },
+                        placeholder = { Text(stringResource(MR.strings.enter_description)) },
+                        keyboardOptions = KeyboardOptions(
+                            capitalization = KeyboardCapitalization.Sentences,
+                            imeAction = ImeAction.Done
+                        ),
+                        modifier = Modifier.padding(8.dp),
+                        maxLines = 4
+                    )
+                }
+                item {
                     TagSelector(selectedTag) { tag ->
                         selectedTag = tag
                     }
                 }
                 item {
-//                    DateTimeSelector(
-//                        taskDueDate,
-//                        onDateTimeSelected = { taskDueDate = it },
-//                        onClearDateTimeClick = { taskDueDate = null }
-//                    )
+                    DateTimeSelector(
+                        taskDueDate,
+                        onDateTimeSelected = { taskDueDate = it },
+                        onClearDateTimeClick = { taskDueDate = null }
+                    )
                 }
                 item {
                     Text(
@@ -148,23 +163,6 @@ fun AddTaskScreen(
 //                        placeholder = { Text(stringResource(MR.strings.add_element_optional)) },
 //                        onAddTaskCheckListItem = { taskChecklistItems.add(it) }
 //                    )
-                }
-                item {
-                    AppTitledTextField(
-                        title = stringResource(MR.strings.description),
-                        value = taskDescription,
-                        onValueChange = { taskDescription = it },
-                        placeholder = { Text(stringResource(MR.strings.enter_description)) },
-                        keyboardOptions = KeyboardOptions(
-                            capitalization = KeyboardCapitalization.Sentences,
-                            imeAction = ImeAction.Done
-                        ),
-                        modifier = Modifier.padding(8.dp),
-                        maxLines = 4
-                    )
-                }
-                item {
-                    Divider()
                 }
             }
 //            if (discardTaskAlertDialogState) {
