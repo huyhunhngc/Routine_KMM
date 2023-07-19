@@ -1,15 +1,18 @@
 package com.dotsdev.routine.android.presentation.scence.task.addtask
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Checklist
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -39,13 +42,17 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.dotsdev.routine.android.ui.components.AppTitledTextField
 import com.dotsdev.routine.android.ui.components.DoneActionAppBar
 import com.dotsdev.routine.android.ui.components.TagSelector
+import com.dotsdev.routine.android.ui.dialog.Alert
 import com.dotsdev.routine.android.ui.dialog.DateTimeSelector
 import com.dotsdev.routine.android.util.Alpha.alphaMedium
 import com.dotsdev.routine.model.TaskItem
+import com.dotsdev.routine.model.TaskItem.Tag.Companion.composeColorOf
 import com.dotsdev.routine.resources.MR
 import com.dotsdev.routine.resources.stringResource
+import com.dotsdev.routine.theme.AppColors
+import com.dotsdev.routine.theme.AppTheme
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
 fun AddTaskScreen(
     onBackClick: () -> Unit,
@@ -68,8 +75,17 @@ fun AddTaskScreen(
         )
     }
     var taskDueDate: Long? by rememberSaveable { mutableStateOf(null) }
-    val taskChecklistItems: MutableList<String> by rememberSaveable {
-        mutableStateOf(mutableListOf())
+    var taskChecklistItems by rememberSaveable {
+        mutableStateOf(listOf<String>())
+    }
+    var taskChecklistItemInput by remember { mutableStateOf("") }
+    val addTaskChecklistItemAction = {
+        if (taskChecklistItemInput.isNotBlank()) {
+            val checkList = taskChecklistItems.toMutableList()
+            checkList.add(taskChecklistItemInput)
+            taskChecklistItems = checkList
+            taskChecklistItemInput = ""
+        }
     }
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -91,9 +107,11 @@ fun AddTaskScreen(
         },
         content = { padding ->
             if (addTaskUiState.isAddingTask) {
-                LinearProgressIndicator(modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(padding))
+                LinearProgressIndicator(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(padding)
+                )
             }
             LazyColumn(state = lazyListState, modifier = Modifier.padding(padding)) {
                 item {
@@ -155,22 +173,47 @@ fun AddTaskScreen(
                 itemsIndexed(taskChecklistItems) { index, item ->
                     TaskChecklistItem(
                         item,
-                        onDeleteTaskCheckListItem = { taskChecklistItems.removeAt(index) }
+                        onDeleteTaskCheckListItem = {
+                            val checkList = taskChecklistItems.toMutableList()
+                            checkList.removeAt(index)
+                            taskChecklistItems = checkList
+                        },
+                        Modifier.animateItemPlacement()
                     )
                 }
                 item {
-//                    AddChecklistItemField(
-//                        placeholder = { Text(stringResource(MR.strings.add_element_optional)) },
-//                        onAddTaskCheckListItem = { taskChecklistItems.add(it) }
-//                    )
+                    AppTitledTextField(
+                        value = taskChecklistItemInput,
+                        onValueChange = { taskChecklistItemInput = it },
+                        placeholder = { Text(stringResource(MR.strings.add_element_optional)) },
+                        maxLines = 1,
+                        singleLine = true,
+                        keyboardActions = KeyboardActions(
+                            onDone = { addTaskChecklistItemAction() }
+                        ),
+                        keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences)
+                    )
+                    if (taskChecklistItemInput.isNotBlank()) {
+                        IconButton(
+                            onClick = addTaskChecklistItemAction
+                        ) {
+                            Icon(
+                                Icons.Filled.Check,
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.primary
+                            )
+                        }
+                    }
                 }
             }
-//            if (discardTaskAlertDialogState) {
-//                DiscardTaskAlertDialog(
-//                    onDismissRequest = { discardTaskAlertDialogState = false },
-//                    onConfirmButtonClick = navigateBack
-//                )
-//            }
+            if (discardTaskAlertDialogState) {
+                Alert(
+                    title = MR.strings.discard_task_alert_dialog_title,
+                    message = MR.strings.discard_task_alert_dialog_body,
+                    onDismissRequest = { discardTaskAlertDialogState = false },
+                    onPositiveClick = onBackClick
+                )
+            }
         }
     )
 }
@@ -178,12 +221,18 @@ fun AddTaskScreen(
 @Composable
 private fun TaskChecklistItem(
     taskChecklistItem: String,
-    onDeleteTaskCheckListItem: () -> Unit
+    onDeleteTaskCheckListItem: () -> Unit,
+    modifier: Modifier
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.padding(start = 8.dp, end = 8.dp)
+        modifier = modifier.padding(start = 16.dp, end = 16.dp)
     ) {
+        Icon(
+            Icons.Filled.Checklist,
+            contentDescription = null,
+            tint = AppTheme.appColors.composeColorOf(TaskItem.Tag.GREEN)
+        )
         Text(
             text = taskChecklistItem,
             modifier = Modifier.weight(1f),

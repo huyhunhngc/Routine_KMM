@@ -1,62 +1,39 @@
 package com.dotsdev.routine.android.ui.dialog
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import com.dotsdev.routine.resources.MR
 import com.dotsdev.routine.resources.stringResource
+import dev.icerock.moko.resources.StringResource
 
 @Composable
-fun DeleteTaskListAlertDialog(onDismissRequest: () -> Unit, onDeleteTaskListClick: () -> Unit) {
-    ToDometerAlertDialog(
+fun Alert(
+    icon: ImageVector? = null,
+    title: StringResource? = null,
+    message: StringResource? = null,
+    onDismissRequest: () -> Unit = {},
+    onPositiveClick: () -> Unit = {}
+) {
+    AppAlertDialog(
         icon = {
-            Icon(Icons.Filled.Warning, contentDescription = null)
+            icon?.let { Icon(it, contentDescription = null) }
         },
         title = {
-            Text(stringResource(MR.strings.delete_task_list))
+            title?.let { Text(stringResource(title)) }
         },
         onDismissRequest = onDismissRequest,
         text = {
-            Text(stringResource(MR.strings.delete_task_list_question))
+            message?.let { Text(stringResource(message)) }
         },
         confirmButton = {
             TextButton(
                 onClick = {
-                    onDeleteTaskListClick()
-                    onDismissRequest()
-                }
-            ) {
-                Text(stringResource(MR.strings.ok))
-            }
-        },
-        dismissButton = {
-            TextButton(onClick = onDismissRequest) {
-                Text(stringResource(MR.strings.cancel))
-            }
-        }
-    )
-}
-
-
-@Composable
-fun DeleteTaskAlertDialog(onDismissRequest: () -> Unit, onDeleteTaskClick: () -> Unit) {
-    ToDometerAlertDialog(
-        title = {
-            Text(stringResource(MR.strings.delete_task))
-        },
-        onDismissRequest = onDismissRequest,
-        text = {
-            Text(stringResource(MR.strings.delete_task_question))
-        },
-        confirmButton = {
-            TextButton(
-                onClick = {
-                    onDeleteTaskClick()
+                    onPositiveClick()
                     onDismissRequest()
                 }
             ) {
@@ -72,7 +49,7 @@ fun DeleteTaskAlertDialog(onDismissRequest: () -> Unit, onDeleteTaskClick: () ->
 }
 
 @Composable
-fun ToDometerAlertDialog(
+fun AppAlertDialog(
     onDismissRequest: () -> Unit,
     confirmButton: @Composable () -> Unit,
     modifier: Modifier = Modifier,
@@ -81,8 +58,7 @@ fun ToDometerAlertDialog(
     title: @Composable (() -> Unit)? = null,
     text: @Composable (() -> Unit)? = null
 ) {
-    //  Workaround to have default parameters in Kotlin Multiplatform.
-    ToDometerPlatformAlertDialog(
+    PlatformAlertDialog(
         onDismissRequest = onDismissRequest,
         confirmButton = confirmButton,
         modifier = modifier,
@@ -94,7 +70,7 @@ fun ToDometerAlertDialog(
 }
 
 @Composable
-fun ToDometerPlatformAlertDialog(
+fun PlatformAlertDialog(
     onDismissRequest: () -> Unit,
     confirmButton: @Composable () -> Unit,
     modifier: Modifier,

@@ -5,6 +5,7 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -26,11 +27,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.dotsdev.routine.android.R
-import com.dotsdev.routine.android.ui.dialog.DeleteTaskAlertDialog
-import com.dotsdev.routine.android.ui.dialog.DeleteTaskListAlertDialog
 import com.dotsdev.routine.android.ui.components.AppLoading
 import com.dotsdev.routine.android.ui.components.EmptyView
 import com.dotsdev.routine.android.ui.components.HomeAppBar
+import com.dotsdev.routine.android.ui.dialog.Alert
 import com.dotsdev.routine.resources.MR
 import com.dotsdev.routine.resources.stringResource
 import kotlinx.coroutines.launch
@@ -107,17 +107,23 @@ fun TaskScreen(
         },
         content = { paddingValues ->
             if (deleteTaskAlertDialogState) {
-                DeleteTaskAlertDialog(
+                Alert(
+                    title = MR.strings.delete_task,
+                    message = MR.strings.delete_task_question,
+                    icon = Icons.Filled.Warning,
                     onDismissRequest = { deleteTaskAlertDialogState = false },
-                    onDeleteTaskClick = {
+                    onPositiveClick = {
                         viewModel.deleteTask(selectedTask)
                     }
                 )
             }
             if (deleteTaskListAlertDialogState) {
-                DeleteTaskListAlertDialog(
+                Alert(
+                    title = MR.strings.delete_task_list,
+                    message = MR.strings.delete_task_list_question,
+                    icon = Icons.Filled.Warning,
                     onDismissRequest = { deleteTaskListAlertDialogState = false },
-                    onDeleteTaskListClick = {
+                    onPositiveClick = {
                         viewModel.deleteTaskList()
                         scope.launch { sheetState.hide() }
                     }
