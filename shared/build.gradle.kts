@@ -88,3 +88,9 @@ android {
 multiplatformResources {
     multiplatformResourcesPackage = "com.dotsdev.routine.resources"
 }
+
+sqldelight {
+    database("RoutineDatabase") {
+        packageName = "com.dotsdev.routine"
+    }
+}
