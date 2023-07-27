@@ -12,9 +12,21 @@ data class TaskItem(
     val tag: Tag,
     val sync: Boolean,
     val dueDate: Long?,
+    val taskChecklistItem: List<TaskChecklistItem>,
     val checklistItemsDone: Long,
     val totalChecklistItems: Long
 ) {
+    data class TaskChecklistItem(
+        val id: String,
+        val text: String,
+        val state: TaskChecklistItemState,
+        val taskId: String
+    ) {
+        enum class TaskChecklistItemState {
+            UNCHECKED,
+            CHECKED
+        }
+    }
     enum class TaskState {
         DOING,
         DONE;

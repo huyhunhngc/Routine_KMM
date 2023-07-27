@@ -3,9 +3,9 @@ plugins {
     kotlin("native.cocoapods")
     id("com.android.library")
     kotlin("plugin.serialization") version Deps.kotlinVersion
-    id("com.squareup.sqldelight")
+    id(Deps.squareupDelight)
     id("org.jetbrains.compose") version "1.4.0"
-    id("dev.icerock.mobile.multiplatform-resources") version "0.22.3"
+    id(Deps.pluginMoko) version "0.22.3"
 }
 
 kotlin {
@@ -60,6 +60,9 @@ kotlin {
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting
         val iosMain by creating {
+            dependencies {
+                implementation(Deps.sqlDelightNativeDriver)
+            }
             dependsOn(commonMain)
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)

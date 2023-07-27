@@ -1,0 +1,80 @@
+import com.dotsdev.routine.model.TaskItem.TaskChecklistItem.TaskChecklistItemState;
+import com.dotsdev.routine.model.TaskItem.TaskState;
+import com.dotsdev.routine.model.TaskItem.Tag;
+import kotlin.Boolean;
+
+CREATE TABLE IF NOT EXISTS TaskEntity (
+    id TEXT PRIMARY KEY NOT NULL,
+    title TEXT NOT NULL,
+    description TEXT,
+    state TEXT AS TaskState NOT NULL,
+    tasklist_id TEXT NOT NULL,
+    tag TEXT AS Tag NOT NULL,
+    sync INTEGER AS Boolean NOT NULL DEFAULT 0,
+    dueDate INTEGER,
+    FOREIGN KEY(tasklist_id) REFERENCES TaskListEntity(id) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+selectTask:
+SELECT * FROM TaskEntity WHERE id = ?;
+
+selectTasksByTaskListId:
+SELECT t.id, t.title, t.state, t.tasklist_id, t.tag, t.sync, t.dueDate,
+    COUNT(CASE WHEN c.state = 'CHECKED' THEN 1 ELSE NULL END) AS 'checklistItemsDone',
+    COUNT(c.id) AS 'totalChecklistItems'
+FROM TaskEntity t LEFT OUTER JOIN TaskChecklistItemEntity c ON t.id = c.task_id
+WHERE t.tasklist_id = ? GROUP BY t.id; ---- ORDER BY state ASC;
+
+selectAllTasks:
+SELECT * FROM TaskEntity;
+
+insertOrReplaceTask:
+INSERT OR REPLACE INTO TaskEntity
+(id, title, description, state, tasklist_id, tag, sync, dueDate)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?);
+
+updateTask:
+UPDATE TaskEntity
+SET
+    title = ?,
+    description = ?,
+    tag = ?,
+    dueDate = ?
+WHERE id = ?;
+
+updateTaskSync:
+UPDATE TaskEntity SET sync = ? WHERE id = ?;
+
+updateTaskState:
+UPDATE TaskEntity SET state = ? WHERE id = ?;
+
+deleteTask:
+DELETE FROM TaskEntity WHERE id = ?;
+
+---- Task check list table
+CREATE TABLE IF NOT EXISTS TaskChecklistItemEntity (
+    id TEXT PRIMARY KEY NOT NULL,
+    text TEXT NOT NULL,
+    task_id TEXT NOT NULL,
+    state TEXT AS TaskChecklistItemState NOT NULL,
+    FOREIGN KEY(task_id) REFERENCES TaskEntity(id) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+selectTaskChecklistItems:
+SELECT *
+FROM TaskChecklistItemEntity
+WHERE task_id = ? ORDER BY state DESC;
+
+insertTaskChecklistItem:
+INSERT OR REPLACE INTO TaskChecklistItemEntity
+(id, text, task_id, state)
+VALUES (?, ?, ?, ?);
+
+updateTaskChecklistItemState:
+UPDATE TaskChecklistItemEntity
+SET
+    state = ?
+WHERE id = ?;
+
+deleteTaskChecklistItem:
+DELETE FROM TaskChecklistItemEntity WHERE id = ?;

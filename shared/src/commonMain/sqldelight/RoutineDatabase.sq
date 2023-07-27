@@ -1,3 +1,0 @@
-CREATE TABLE RoutineDatabase (
-    flightNumber INTEGER NOT NULL
-);
