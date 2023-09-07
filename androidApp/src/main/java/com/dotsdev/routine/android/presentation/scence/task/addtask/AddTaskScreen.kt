@@ -39,6 +39,10 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import androidx.navigation.NavGraphBuilder
+import androidx.navigation.compose.composable
+import com.dotsdev.routine.android.presentation.AppRoute
 import com.dotsdev.routine.android.ui.components.AppTitledTextField
 import com.dotsdev.routine.android.ui.components.DoneActionAppBar
 import com.dotsdev.routine.android.ui.components.TagSelector
@@ -49,9 +53,19 @@ import com.dotsdev.routine.model.TaskItem
 import com.dotsdev.routine.model.TaskItem.Tag.Companion.composeColorOf
 import com.dotsdev.routine.resources.MR
 import com.dotsdev.routine.resources.stringResource
-import com.dotsdev.routine.theme.AppColors
 import com.dotsdev.routine.theme.AppTheme
 
+fun NavController.navigateToAddTaskScreen() {
+    navigate(AppRoute.addTaskRoute)
+}
+fun NavGraphBuilder.addTaskScreens(
+    onBackClick: () -> Unit,
+) {
+    composable(AppRoute.addTaskRoute) {
+        AddTaskScreen(onBackClick)
+    }
+    //composable()
+}
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
 fun AddTaskScreen(

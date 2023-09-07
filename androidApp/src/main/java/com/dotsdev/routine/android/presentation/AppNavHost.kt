@@ -1,76 +1,154 @@
 package com.dotsdev.routine.android.presentation
 
-import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.core.FastOutLinearInEasing
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavBackStackEntry
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
-import com.dotsdev.routine.android.presentation.AppRoute.addTaskRoute
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.rememberNavController
 import com.dotsdev.routine.android.presentation.AppRoute.mainTabRoute
-import com.dotsdev.routine.android.presentation.AppRoute.settings
-import com.dotsdev.routine.android.presentation.scence.main.MainScreen
-import com.dotsdev.routine.android.presentation.scence.settings.SettingsScreen
-import com.dotsdev.routine.android.presentation.scence.task.addtask.AddTaskScreen
-import com.google.accompanist.navigation.animation.AnimatedNavHost
-import com.google.accompanist.navigation.animation.composable
+import com.dotsdev.routine.android.presentation.scence.calendar.calendarScreens
+import com.dotsdev.routine.android.presentation.scence.main.mainTabScreens
+import com.dotsdev.routine.android.presentation.scence.settings.navigateToSettingsScreen
+import com.dotsdev.routine.android.presentation.scence.settings.settingsScreens
+import com.dotsdev.routine.android.presentation.scence.task.addtask.addTaskScreens
+import com.dotsdev.routine.android.presentation.scence.task.addtask.navigateToAddTaskScreen
+import com.dotsdev.routine.android.presentation.scence.task.taskScreens
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun AppNavHost(
     navController: NavHostController,
-    navControllerBottomBar: NavHostController,
     onBackClick: () -> Unit,
-    modifier: Modifier = Modifier,
     onStartMainFlow: () -> Unit,
     onStopMainFlow: () -> Unit,
     startDestination: String = mainTabRoute,
+    modifier: Modifier = Modifier,
 ) {
-    AnimatedNavHost(
+    NavHostWithSharedAxisX(
         navController = navController,
         startDestination = startDestination,
         modifier = modifier,
     ) {
-        composable(mainTabRoute) {
-            MainScreen(
-                onStart = onStartMainFlow,
-                onStop = onStopMainFlow,
-                navController = navController,
-                navControllerMainTab = navControllerBottomBar
+        mainTabScreens(
+            onStartMainFlow = onStartMainFlow,
+            onStopMainFlow = onStopMainFlow,
+        ) { mainTabNavController, _ ->
+            taskScreens(
+                navigateToAddTaskList = {},
+                navigateToEditTaskList = {},
+                navigateToAddTask = { navController.navigateToAddTaskScreen() },
+                navigateToSettings = { navController.navigateToSettingsScreen() },
+                onTaskItemClick = {},
             )
+            calendarScreens()
         }
-        composableAnimated(addTaskRoute) {
-            AddTaskScreen(onBackClick)
-        }
-        composableAnimated(settings) {
-            SettingsScreen(onBackClick)
-        }
+        addTaskScreens(onBackClick = onBackClick)
+        settingsScreens(onBackClick = onBackClick)
     }
 }
 
-@OptIn(ExperimentalAnimationApi::class)
-fun NavGraphBuilder.composableAnimated(
-    route: String,
-    content: @Composable (NavBackStackEntry) -> Unit
+@Composable
+fun NavHostWithSharedAxisX(
+    navController: NavHostController,
+    startDestination: String,
+    modifier: Modifier = Modifier,
+    contentAlignment: Alignment = Alignment.Center,
+    route: String? = null,
+    builder: NavGraphBuilder.() -> Unit,
 ) {
-    composable(
+    val slideDistance = rememberSlideDistance()
+    NavHost(
+        navController = navController,
+        startDestination = startDestination,
+        modifier = modifier,
+        contentAlignment = contentAlignment,
         route = route,
         enterTransition = {
-            slideInHorizontally(
-                initialOffsetX = { it },
-                animationSpec = tween(300)
+            materialSharedAxisXIn(
+                forward = true,
+                slideDistance = slideDistance,
             )
         },
         exitTransition = {
-            slideOutHorizontally(
-                targetOffsetX = { it },
-                animationSpec = tween(300)
+            materialSharedAxisXOut(
+                forward = true,
+                slideDistance = slideDistance,
             )
-        }
-    ) {
-        content(it)
+        },
+        popEnterTransition = {
+            materialSharedAxisXIn(
+                forward = false,
+                slideDistance = slideDistance,
+            )
+        },
+        popExitTransition = {
+            materialSharedAxisXOut(
+                forward = false,
+                slideDistance = slideDistance,
+            )
+        },
+        builder = builder,
+    )
+}
+
+@Composable
+private fun rememberSlideDistance(): Int {
+    val slideDistance: Dp = 30.dp
+    val density = LocalDensity.current
+    return remember(density, slideDistance) {
+        with(density) { slideDistance.roundToPx() }
     }
 }
+
+private fun materialSharedAxisXIn(
+    forward: Boolean,
+    slideDistance: Int,
+): EnterTransition = slideInHorizontally(
+    animationSpec = tween(
+        durationMillis = 300,
+        easing = FastOutSlowInEasing,
+    ),
+    initialOffsetX = {
+        if (forward) slideDistance else -slideDistance
+    },
+) + fadeIn(
+    animationSpec = tween(
+        durationMillis = 195,
+        delayMillis = 105,
+        easing = LinearOutSlowInEasing,
+    ),
+)
+
+private fun materialSharedAxisXOut(
+    forward: Boolean,
+    slideDistance: Int,
+): ExitTransition = slideOutHorizontally(
+    animationSpec = tween(
+        durationMillis = 300,
+        easing = FastOutSlowInEasing,
+    ),
+    targetOffsetX = {
+        if (forward) -slideDistance else slideDistance
+    },
+) + fadeOut(
+    animationSpec = tween(
+        durationMillis = 105,
+        delayMillis = 0,
+        easing = FastOutLinearInEasing,
+    ),
+)

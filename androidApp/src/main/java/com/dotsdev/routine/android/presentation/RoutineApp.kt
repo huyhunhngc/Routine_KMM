@@ -19,12 +19,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.dotsdev.routine.android.util.backgroundColor
 import com.dotsdev.routine.model.preferences.AppThemeType
 import com.dotsdev.routine.theme.AppTheme
@@ -33,13 +36,13 @@ import com.dotsdev.routine.theme.LightColorScheme
 import com.dotsdev.routine.theme.RoutineDarkColors
 import com.dotsdev.routine.theme.RoutineLightColors
 import com.dotsdev.routine.theme.Type.typography
+import com.google.accompanist.systemuicontroller.SystemUiController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 internal fun RoutineApp(
-    appState: AppState = rememberAppState(),
     viewModel: RoutineMainViewModel = hiltViewModel()
 ) {
     val appThemeState = viewModel.appTheme.collectAsState()
@@ -51,11 +54,7 @@ internal fun RoutineApp(
 
     val colorScheme = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
         val context = LocalContext.current
-        if (darkTheme) {
-            dynamicDarkColorScheme(context)
-        } else {
-            dynamicLightColorScheme(context)
-        }
+        if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
     } else {
         if (darkTheme) DarkColorScheme else LightColorScheme
     }
@@ -66,14 +65,11 @@ internal fun RoutineApp(
         medium = RoundedCornerShape(8.dp),
         large = RoundedCornerShape(12.dp)
     )
+    val keyboardController = LocalSoftwareKeyboardController.current
     val navigationBarColor = colorScheme.backgroundColor()
     val systemUiController = rememberSystemUiController()
-    val keyboardController = LocalSoftwareKeyboardController.current
-    val navigateBackAction: () -> Unit = {
-        keyboardController?.hide()
-        appState.navigateBack()
-    }
-    val scope = rememberCoroutineScope()
+    val coroutineScope = rememberCoroutineScope()
+    val navController: NavHostController = rememberNavController()
     SideEffect {
         systemUiController.setStatusBarColor(
             color = colorScheme.background,
@@ -104,13 +100,15 @@ internal fun RoutineApp(
                 snackbarHost = { SnackbarHost(snackBarHostState) },
             ) { padding ->
                 AppNavHost(
-                    navController = appState.navController,
-                    navControllerBottomBar = appState.navControllerBottomBar,
-                    onBackClick = navigateBackAction,
+                    navController = navController,
+                    onBackClick = {
+                        keyboardController?.hide()
+                        navController.popBackStack()
+                    },
                     modifier = Modifier.padding(padding),
                     startDestination = AppRoute.mainTabRoute,
                     onStartMainFlow = {
-                        scope.launch {
+                        coroutineScope.launch {
                             systemUiController.setNavigationBarColor(
                                 color = navigationBarColor,
                                 darkIcons = !darkTheme
@@ -118,7 +116,7 @@ internal fun RoutineApp(
                         }
                     },
                     onStopMainFlow = {
-                        scope.launch {
+                        coroutineScope.launch {
                             systemUiController.setNavigationBarColor(
                                 color = colorScheme.background,
                                 darkIcons = !darkTheme

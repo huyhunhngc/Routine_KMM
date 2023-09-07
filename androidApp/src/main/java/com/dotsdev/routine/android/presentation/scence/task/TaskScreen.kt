@@ -26,7 +26,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavGraphBuilder
+import androidx.navigation.compose.composable
 import com.dotsdev.routine.android.R
+import com.dotsdev.routine.android.presentation.AppRoute
 import com.dotsdev.routine.android.ui.components.AppLoading
 import com.dotsdev.routine.android.ui.components.EmptyView
 import com.dotsdev.routine.android.ui.components.HomeAppBar
@@ -34,6 +37,24 @@ import com.dotsdev.routine.android.ui.dialog.Alert
 import com.dotsdev.routine.resources.MR
 import com.dotsdev.routine.resources.stringResource
 import kotlinx.coroutines.launch
+
+fun NavGraphBuilder.taskScreens(
+    navigateToAddTaskList: () -> Unit,
+    navigateToEditTaskList: () -> Unit,
+    navigateToAddTask: () -> Unit,
+    navigateToSettings: () -> Unit,
+    onTaskItemClick: (String) -> Unit,
+) {
+    composable(AppRoute.taskRoute) {
+        TaskScreen(
+            navigateToAddTaskList = navigateToAddTaskList,
+            navigateToEditTaskList = navigateToEditTaskList,
+            navigateToAddTask = navigateToAddTask,
+            navigateToSettings = navigateToSettings,
+            onTaskItemClick = onTaskItemClick,
+        )
+    }
+}
 
 @OptIn(
     ExperimentalMaterialApi::class,

@@ -5,7 +5,7 @@ object Deps {
     const val composeVersion = "1.4.0-alpha02"
     const val compose3Version = "1.1.0-alpha07"
     const val composeAnimationVersion = "1.4.3"
-    private const val composeNavigationVersion = "2.5.3"
+    private const val composeNavigationVersion = "2.7.1"
     private const val coilComposeVersion = "2.1.0"
     private const val systemUIControllerVersion = "0.30.1"
     private const val navigationAnimationVersion = "0.28.0"

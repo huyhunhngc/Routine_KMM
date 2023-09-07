@@ -1,5 +1,14 @@
 package com.dotsdev.routine.android.presentation.scence.main
 
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.core.FastOutLinearInEasing
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -20,23 +29,33 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.dotsdev.routine.android.presentation.AppRoute.addTaskRoute
-import com.dotsdev.routine.android.presentation.AppRoute.calendarRoute
-import com.dotsdev.routine.android.presentation.AppRoute.podcastRoute
-import com.dotsdev.routine.android.presentation.AppRoute.settings
+import androidx.navigation.compose.rememberNavController
+import com.dotsdev.routine.android.presentation.AppRoute
 import com.dotsdev.routine.android.presentation.AppRoute.taskRoute
-import com.dotsdev.routine.android.presentation.scence.calendar.CalendarScreen
-import com.dotsdev.routine.android.presentation.scence.task.TaskScreen
+
+fun NavGraphBuilder.mainTabScreens(
+    onStartMainFlow: () -> Unit,
+    onStopMainFlow: () -> Unit,
+    mainNavGraph: NavGraphBuilder.(NavController, PaddingValues) -> Unit,
+) {
+    composable(AppRoute.mainTabRoute) {
+        MainScreen(
+            onStart = onStartMainFlow,
+            onStop = onStopMainFlow,
+            mainNavGraph = mainNavGraph,
+        )
+    }
+}
 
 @Composable
 fun MainScreen(
     lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current,
     onStart: () -> Unit,
     onStop: () -> Unit,
-    navController: NavController,
-    navControllerMainTab: NavHostController,
-    viewModel: MainViewModel = hiltViewModel()
+    mainNavGraph: NavGraphBuilder.(NavController, PaddingValues) -> Unit,
+    viewModel: MainViewModel = hiltViewModel(),
 ) {
+    val mainTabNavController = rememberNavController()
     val currentOnStart by rememberUpdatedState(onStart)
     val currentOnStop by rememberUpdatedState(onStop)
     DisposableEffect(lifecycleOwner) {
@@ -56,53 +75,42 @@ fun MainScreen(
         modifier = Modifier.fillMaxSize(),
         bottomBar = {
             BottomNavigationBar(
-                navController = navControllerMainTab,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .zIndex(1f)
+                navController = mainTabNavController,
+                modifier = Modifier.fillMaxWidth().zIndex(1f)
             )
         }
     ) { padding ->
         NavHost(
-            navController = navControllerMainTab,
+            navController = mainTabNavController,
             startDestination = taskRoute,
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(padding),
+            modifier = Modifier.fillMaxSize().padding(padding),
+            enterTransition = { materialFadeThroughIn() },
+            exitTransition = { materialFadeThroughOut() },
         ) {
-            mainTabGraph(
-                navController = navController
-            )
+            mainNavGraph(mainTabNavController, padding)
         }
     }
 }
 
-fun NavGraphBuilder.mainTabGraph(
-    navController: NavController
-) {
-    composable(taskRoute) {
-        TaskScreen(
-            navigateToAddTaskList = {
+private fun materialFadeThroughIn(): EnterTransition = fadeIn(
+    animationSpec = tween(
+        durationMillis = 195,
+        delayMillis = 105,
+        easing = LinearOutSlowInEasing,
+    ),
+) + scaleIn(
+    animationSpec = tween(
+        durationMillis = 195,
+        delayMillis = 105,
+        easing = LinearOutSlowInEasing,
+    ),
+    initialScale = 0.92f,
+)
 
-            },
-            navigateToEditTaskList = {
-
-            },
-            navigateToAddTask = {
-                navController.navigate(addTaskRoute)
-            },
-            navigateToSettings = {
-                navController.navigate(settings)
-            },
-            onTaskItemClick = {
-
-            },
-        )
-    }
-    composable(calendarRoute) {
-        CalendarScreen()
-    }
-    composable(podcastRoute) {
-
-    }
-}
+private fun materialFadeThroughOut(): ExitTransition = fadeOut(
+    animationSpec = tween(
+        durationMillis = 105,
+        delayMillis = 0,
+        easing = FastOutLinearInEasing,
+    ),
+)
