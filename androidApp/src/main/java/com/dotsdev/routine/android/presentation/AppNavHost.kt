@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -24,6 +25,7 @@ import androidx.navigation.compose.rememberNavController
 import com.dotsdev.routine.android.presentation.AppRoute.mainTabRoute
 import com.dotsdev.routine.android.presentation.scence.calendar.calendarScreens
 import com.dotsdev.routine.android.presentation.scence.main.mainTabScreens
+import com.dotsdev.routine.android.presentation.scence.podcast.podCastScreens
 import com.dotsdev.routine.android.presentation.scence.settings.navigateToSettingsScreen
 import com.dotsdev.routine.android.presentation.scence.settings.settingsScreens
 import com.dotsdev.routine.android.presentation.scence.task.addtask.addTaskScreens
@@ -34,6 +36,7 @@ import com.dotsdev.routine.android.presentation.scence.task.taskScreens
 fun AppNavHost(
     navController: NavHostController,
     onBackClick: () -> Unit,
+    onBackClickBlockNavController: NavController.() -> Unit,
     onStartMainFlow: () -> Unit,
     onStopMainFlow: () -> Unit,
     startDestination: String = mainTabRoute,
@@ -51,11 +54,15 @@ fun AppNavHost(
             taskScreens(
                 navigateToAddTaskList = {},
                 navigateToEditTaskList = {},
-                navigateToAddTask = { navController.navigateToAddTaskScreen() },
+                navigateToAddTask = { mainTabNavController.navigateToAddTaskScreen() },
                 navigateToSettings = { navController.navigateToSettingsScreen() },
                 onTaskItemClick = {},
             )
             calendarScreens()
+            podCastScreens()
+            addTaskScreens(
+                onBackClick = { onBackClickBlockNavController(mainTabNavController) }
+            )
         }
         addTaskScreens(onBackClick = onBackClick)
         settingsScreens(onBackClick = onBackClick)

@@ -9,6 +9,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.SnackbarHost
 import androidx.compose.material.SnackbarHostState
 import androidx.compose.material.Surface
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Shapes
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
@@ -89,42 +90,37 @@ internal fun RoutineApp(
     ) {
         Surface(
             modifier = Modifier.fillMaxSize(),
-            color = colorScheme.background
+            color = MaterialTheme.colorScheme.background
         ) {
-            val snackBarHostState = remember { SnackbarHostState() }
-            Scaffold(
-                modifier = Modifier
-                    .semantics { testTagsAsResourceId = true }
-                    .fillMaxSize(),
-                backgroundColor = colorScheme.background,
-                snackbarHost = { SnackbarHost(snackBarHostState) },
-            ) { padding ->
-                AppNavHost(
-                    navController = navController,
-                    onBackClick = {
-                        keyboardController?.hide()
-                        navController.popBackStack()
-                    },
-                    modifier = Modifier.padding(padding),
-                    startDestination = AppRoute.mainTabRoute,
-                    onStartMainFlow = {
-                        coroutineScope.launch {
-                            systemUiController.setNavigationBarColor(
-                                color = navigationBarColor,
-                                darkIcons = !darkTheme
-                            )
-                        }
-                    },
-                    onStopMainFlow = {
-                        coroutineScope.launch {
-                            systemUiController.setNavigationBarColor(
-                                color = colorScheme.background,
-                                darkIcons = !darkTheme
-                            )
-                        }
+            AppNavHost(
+                navController = navController,
+                onBackClick = {
+                    keyboardController?.hide()
+                    navController.popBackStack()
+                },
+                onBackClickBlockNavController = {
+                    keyboardController?.hide()
+                    popBackStack()
+                },
+                modifier = Modifier,
+                startDestination = AppRoute.mainTabRoute,
+                onStartMainFlow = {
+                    coroutineScope.launch {
+                        systemUiController.setNavigationBarColor(
+                            color = navigationBarColor,
+                            darkIcons = !darkTheme
+                        )
                     }
-                )
-            }
+                },
+                onStopMainFlow = {
+                    coroutineScope.launch {
+                        systemUiController.setNavigationBarColor(
+                            color = colorScheme.background,
+                            darkIcons = !darkTheme
+                        )
+                    }
+                }
+            )
         }
     }
 }

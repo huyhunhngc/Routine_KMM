@@ -1,5 +1,6 @@
 package com.dotsdev.routine.android.presentation.scence.main
 
+import android.util.Log
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Icon
@@ -7,6 +8,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material.icons.filled.Podcasts
 import androidx.compose.material.icons.filled.Task
+import androidx.compose.material.icons.outlined.CalendarMonth
+import androidx.compose.material.icons.outlined.Podcasts
+import androidx.compose.material.icons.outlined.Task
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -24,11 +28,12 @@ import com.dotsdev.routine.android.util.backgroundColor
 
 sealed class NavigationItem(
     val route: String,
+    val selectedIcon: ImageVector,
     val icon: ImageVector,
 ) {
-    object HomeTask : NavigationItem(taskRoute, Icons.Filled.Task)
-    object Calendar : NavigationItem(calendarRoute, Icons.Filled.CalendarMonth)
-    object Podcast : NavigationItem(podcastRoute, Icons.Filled.Podcasts)
+    object HomeTask : NavigationItem(taskRoute, Icons.Filled.Task, Icons.Outlined.Task)
+    object Calendar : NavigationItem(calendarRoute, Icons.Filled.CalendarMonth, Icons.Outlined.CalendarMonth)
+    object Podcast : NavigationItem(podcastRoute, Icons.Filled.Podcasts, Icons.Outlined.Podcasts)
 }
 
 val navigationBarItems = listOf(
@@ -53,10 +58,11 @@ fun BottomNavigationBar(
         tonalElevation = 1.dp,
     ) {
         items.forEach {
+            val isSelected = currentRoute == it.route
             NavigationBarItem(
                 icon = {
                     Icon(
-                        imageVector = it.icon,
+                        imageVector = if (isSelected) it.selectedIcon else it.icon,
                         contentDescription = null,
                         modifier = Modifier,
                         tint = colorScheme.surfaceTint
@@ -64,7 +70,7 @@ fun BottomNavigationBar(
                 },
                 modifier = Modifier.padding(1.dp),
                 alwaysShowLabel = false,
-                selected = currentRoute == it.route,
+                selected = isSelected,
                 onClick = {
                     navController.navigate(it.route) {
                         navController.graph.startDestinationRoute?.let { route ->
