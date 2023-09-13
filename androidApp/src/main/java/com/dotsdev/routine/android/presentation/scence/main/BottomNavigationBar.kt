@@ -58,6 +58,7 @@ fun BottomNavigationBar(
         tonalElevation = 1.dp,
     ) {
         items.forEach {
+            if (it is NavigationItem.Podcast) return@forEach
             val isSelected = currentRoute == it.route
             NavigationBarItem(
                 icon = {

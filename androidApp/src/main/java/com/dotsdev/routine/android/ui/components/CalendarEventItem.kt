@@ -25,30 +25,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import com.dotsdev.routine.android.util.backgroundColor
 
-
-@OptIn(androidx.compose.foundation.ExperimentalFoundationApi::class)
 @Composable
-fun CalendarEventItem() {
-    val listState = rememberLazyListState()
-    LazyColumn(
-        state = listState
-    ) {
-        for (item in 0..50) {
-            if (item % 10 == 0) {
-                stickyHeader {
-                    CalendarCardHeader(isAccepted = true, showDate = true)
-                }
-            } else {
-                item {
-                    CalendarCardHeader(isAccepted = item % 2 == 0, showDate = false)
-                }
-            }
-        }
-    }
-}
-
-@Composable
-private fun CalendarCardHeader(isAccepted: Boolean, showDate: Boolean) {
+fun CalendarCardHeader(isAccepted: Boolean, showDate: Boolean) {
     Row(
         modifier = Modifier
             .padding(8.dp),

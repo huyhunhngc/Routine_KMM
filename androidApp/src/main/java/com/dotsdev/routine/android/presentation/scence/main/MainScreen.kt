@@ -9,10 +9,12 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
@@ -72,13 +74,13 @@ fun MainScreen(
         }
     }
     Scaffold(
-        modifier = Modifier.fillMaxSize(),
         bottomBar = {
             BottomNavigationBar(
                 navController = mainTabNavController,
                 modifier = Modifier.fillMaxWidth().zIndex(1f)
             )
-        }
+        },
+        backgroundColor = MaterialTheme.colorScheme.background
     ) { padding ->
         NavHost(
             navController = mainTabNavController,

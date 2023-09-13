@@ -90,7 +90,7 @@ internal fun RoutineApp(
     ) {
         Surface(
             modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colorScheme.background
+            color = colorScheme.background
         ) {
             AppNavHost(
                 navController = navController,
