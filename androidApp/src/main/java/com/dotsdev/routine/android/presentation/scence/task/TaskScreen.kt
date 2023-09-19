@@ -58,7 +58,6 @@ fun NavGraphBuilder.taskScreens(
 
 @OptIn(
     ExperimentalMaterialApi::class,
-    ExperimentalMaterial3Api::class
 )
 @Composable
 fun TaskScreen(

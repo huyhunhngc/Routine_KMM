@@ -1,6 +1,5 @@
 package com.dotsdev.routine.android.presentation.scence.main
 
-import android.util.Log
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Icon
@@ -21,6 +20,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.dotsdev.routine.android.presentation.AppRoute.addTaskRoute
 import com.dotsdev.routine.android.presentation.AppRoute.calendarRoute
 import com.dotsdev.routine.android.presentation.AppRoute.podcastRoute
 import com.dotsdev.routine.android.presentation.AppRoute.taskRoute
@@ -31,8 +31,14 @@ sealed class NavigationItem(
     val selectedIcon: ImageVector,
     val icon: ImageVector,
 ) {
-    object HomeTask : NavigationItem(taskRoute, Icons.Filled.Task, Icons.Outlined.Task)
-    object Calendar : NavigationItem(calendarRoute, Icons.Filled.CalendarMonth, Icons.Outlined.CalendarMonth)
+    open val childRoute = setOf(route)
+    object HomeTask : NavigationItem(taskRoute, Icons.Filled.Task, Icons.Outlined.Task) {
+        override val childRoute: Set<String>
+            get() = setOf(route, addTaskRoute)
+    }
+    object Calendar :
+        NavigationItem(calendarRoute, Icons.Filled.CalendarMonth, Icons.Outlined.CalendarMonth)
+
     object Podcast : NavigationItem(podcastRoute, Icons.Filled.Podcasts, Icons.Outlined.Podcasts)
 }
 
@@ -59,7 +65,7 @@ fun BottomNavigationBar(
     ) {
         items.forEach {
             if (it is NavigationItem.Podcast) return@forEach
-            val isSelected = currentRoute == it.route
+            val isSelected = it.childRoute.contains(currentRoute)
             NavigationBarItem(
                 icon = {
                     Icon(
