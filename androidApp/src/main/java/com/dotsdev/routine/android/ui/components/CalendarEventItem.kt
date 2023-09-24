@@ -95,7 +95,7 @@ fun DateHeaderItem() {
 }
 
 @Composable
-private fun textStyle(isAccepted: Boolean) =
+fun textStyle(isAccepted: Boolean) =
     if (!isAccepted) MaterialTheme.typography.bodyMedium.copy(MaterialTheme.colorScheme.onPrimary)
     else MaterialTheme.typography.bodyMedium.copy(MaterialTheme.colorScheme.surfaceTint)
 
