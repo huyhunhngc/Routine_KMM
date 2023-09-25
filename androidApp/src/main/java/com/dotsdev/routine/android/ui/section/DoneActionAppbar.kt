@@ -1,4 +1,4 @@
-package com.dotsdev.routine.android.ui.components
+package com.dotsdev.routine.android.ui.section
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size

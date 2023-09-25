@@ -1,4 +1,4 @@
-package com.dotsdev.routine.android.ui.components
+package com.dotsdev.routine.android.ui.section
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -18,6 +18,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.Saver
@@ -25,11 +26,15 @@ import androidx.compose.runtime.saveable.listSaver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
+import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import com.dotsdev.routine.android.ui.components.textStyle
 import com.dotsdev.routine.model.WeekDay
 import kotlin.math.roundToInt
 
@@ -134,7 +139,51 @@ fun rememberCalendarTabContentScrollState(
 @Stable
 class CalendarTabContentScrollState(
     val tabScrollState: CalendarTabState,
-)
+) {
+    val nestedScrollConnection = object : NestedScrollConnection {
+        override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
+            return onPreScrollSheetContent(available)
+        }
+
+        override fun onPostScroll(
+            consumed: Offset,
+            available: Offset,
+            source: NestedScrollSource,
+        ): Offset {
+            return onPostScrollSheetContent(available)
+        }
+    }
+
+    /**
+     * @return consumed offset
+     */
+    private fun onPreScrollSheetContent(availableScrollOffset: Offset): Offset {
+        if (availableScrollOffset.y >= 0) return Offset.Zero
+        // When scrolled upward
+        return if (tabScrollState.isTabExpandable) {
+            val prevHeightOffset: Float = tabScrollState.scrollOffset
+            tabScrollState.onScroll(availableScrollOffset.y)
+            availableScrollOffset.copy(x = 0f, y = tabScrollState.scrollOffset - prevHeightOffset)
+        } else {
+            Offset.Zero
+        }
+    }
+
+    /**
+     * @return consumed offset
+     */
+    private fun onPostScrollSheetContent(availableScrollOffset: Offset): Offset {
+        if (availableScrollOffset.y < 0f) return Offset.Zero
+        return if (tabScrollState.isTabCollapsing && availableScrollOffset.y > 0) {
+            // When scrolling downward and overscroll
+            val prevHeightOffset = tabScrollState.scrollOffset
+            tabScrollState.onScroll(availableScrollOffset.y)
+            availableScrollOffset.copy(x = 0f, y = tabScrollState.scrollOffset - prevHeightOffset)
+        } else {
+            Offset.Zero
+        }
+    }
+}
 
 @Composable
 fun rememberCalendarTabState(initialScrollOffset: Float = 0.0f): CalendarTabState {
@@ -155,7 +204,7 @@ class CalendarTabState(
     initialScrollOffset: Float = 0f,
 ) {
 
-    private val scrollOffsetLimit by mutableStateOf(initialOffsetLimit)
+    private val scrollOffsetLimit by mutableFloatStateOf(initialOffsetLimit)
 
     val tabCollapseProgress: Float
         get() = scrollOffset / scrollOffsetLimit

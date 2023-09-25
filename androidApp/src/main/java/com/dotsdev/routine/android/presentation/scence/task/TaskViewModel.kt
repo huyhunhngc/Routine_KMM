@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TaskViewModel @Inject constructor(): ViewModel() {
-    data class HomeUiState(
+    data class TaskUiState(
         val isLoadingTasks: Boolean = false,
         val tasks: List<TaskItem> = emptyList(),
         val taskLists: List<TaskList> = emptyList(),
@@ -21,11 +21,11 @@ class TaskViewModel @Inject constructor(): ViewModel() {
         val isDefaultTaskListSelected: Boolean = true,
     )
 
-    private val _homeUiState = MutableStateFlow(HomeUiState(isLoadingTasks = true))
-    val homeUiState = _homeUiState.asStateFlow()
+    private val _taskUiState = MutableStateFlow(TaskUiState(isLoadingTasks = true))
+    val homeUiState = _taskUiState.asStateFlow()
 
     init {
-        _homeUiState.update {
+        _taskUiState.update {
             it.copy(isLoadingTasks = false)
         }
     }
