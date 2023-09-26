@@ -86,12 +86,8 @@ fun CalendarTabItem(
                 modifier = Modifier.padding(6.dp),
             ) {
                 Text(
-                    text = "${day.index}",
+                    text = "D${day.index}",
                     style = textStyle(!selected),
-                )
-                Text(
-                    text = day.name.substring(0, 3),
-                    style = MaterialTheme.typography.bodyLarge,
                     modifier = Modifier
                         .graphicsLayer {
                             alpha = (1 - scrollState.tabCollapseProgress * 2).coerceAtLeast(0f)
@@ -105,6 +101,10 @@ fun CalendarTabItem(
                                 placeable.placeRelative(0, 0)
                             }
                         },
+                )
+                Text(
+                    text = day.name.substring(0, 3),
+                    style = MaterialTheme.typography.bodyLarge,
                 )
             }
         },
@@ -204,17 +204,16 @@ class CalendarTabState(
     initialScrollOffset: Float = 0f,
 ) {
 
-    private val scrollOffsetLimit by mutableFloatStateOf(initialOffsetLimit)
+    private val scrollOffsetLimit: Float by mutableFloatStateOf(initialOffsetLimit)
 
     val tabCollapseProgress: Float
         get() = scrollOffset / scrollOffsetLimit
 
-    private val _scrollOffset = mutableStateOf(initialScrollOffset)
-
+    private val _scrollOffset = mutableFloatStateOf(initialScrollOffset)
     var scrollOffset: Float
-        get() = _scrollOffset.value
+        get() = _scrollOffset.floatValue
         private set(newOffset) {
-            _scrollOffset.value = newOffset.coerceIn(
+            _scrollOffset.floatValue = newOffset.coerceIn(
                 minimumValue = scrollOffsetLimit,
                 maximumValue = 0f,
             )
