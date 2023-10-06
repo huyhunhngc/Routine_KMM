@@ -16,6 +16,11 @@ kotlin {
             }
         }
     }
+    jvm("desktop"){
+        compilations.all {
+            kotlinOptions.jvmTarget = "11"
+        }
+    }
     iosX64()
     iosArm64()
     iosSimulatorArm64()

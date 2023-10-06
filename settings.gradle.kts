@@ -16,4 +16,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "Routine"
 include(":androidApp")
+include(":desktopApp")
 include(":shared")
