@@ -12,11 +12,11 @@ kotlin {
     android {
         compilations.all {
             kotlinOptions {
-                jvmTarget = "1.8"
+                jvmTarget = "11"
             }
         }
     }
-    jvm("desktop"){
+    jvm("desktop") {
         compilations.all {
             kotlinOptions.jvmTarget = "11"
         }
@@ -59,6 +59,11 @@ kotlin {
                 implementation(compose.animationGraphics)
                 implementation(Deps.ktorAndroid)
                 implementation(Deps.sqlDelightAndroidDriver)
+            }
+        }
+        val desktopMain by getting {
+            dependencies {
+                implementation(compose.uiTooling)
             }
         }
         val iosX64Main by getting
