@@ -1,4 +1,4 @@
-package com.dotsdev.routine.android.ui.components
+package com.dotsdev.routine.ui.components
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.FastOutSlowInEasing

@@ -22,8 +22,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.dotsdev.routine.android.R
-import com.dotsdev.routine.android.ui.components.EmptyView
-import com.dotsdev.routine.android.ui.components.SwipeableTaskItem
+import com.dotsdev.routine.ui.components.EmptyView
+import com.dotsdev.routine.ui.components.SwipeableTaskItem
 import com.dotsdev.routine.model.TaskItem
 import com.dotsdev.routine.resources.MR
 import com.dotsdev.routine.resources.stringResource

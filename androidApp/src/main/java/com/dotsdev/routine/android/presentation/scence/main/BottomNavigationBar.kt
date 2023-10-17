@@ -24,7 +24,7 @@ import com.dotsdev.routine.android.presentation.AppRoute.addTaskRoute
 import com.dotsdev.routine.android.presentation.AppRoute.calendarRoute
 import com.dotsdev.routine.android.presentation.AppRoute.podcastRoute
 import com.dotsdev.routine.android.presentation.AppRoute.taskRoute
-import com.dotsdev.routine.android.util.backgroundColor
+import com.dotsdev.routine.util.backgroundColor
 
 sealed class NavigationItem(
     val route: String,

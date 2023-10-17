@@ -39,7 +39,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.dotsdev.routine.android.presentation.AppRoute.settings
-import com.dotsdev.routine.android.util.Alpha
+import com.dotsdev.routine.util.Alpha
 import com.dotsdev.routine.model.preferences.AppThemeType
 import com.dotsdev.routine.resources.MR
 import com.dotsdev.routine.resources.stringResource

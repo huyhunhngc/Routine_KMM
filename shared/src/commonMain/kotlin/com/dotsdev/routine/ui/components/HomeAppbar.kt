@@ -1,4 +1,4 @@
-package com.dotsdev.routine.android.ui.components
+package com.dotsdev.routine.ui.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.icons.Icons

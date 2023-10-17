@@ -30,8 +30,8 @@ import androidx.navigation.compose.composable
 import com.dotsdev.routine.android.R
 import com.dotsdev.routine.android.presentation.AppRoute
 import com.dotsdev.routine.ui.components.AppLoading
-import com.dotsdev.routine.android.ui.components.EmptyView
-import com.dotsdev.routine.android.ui.components.HomeAppBar
+import com.dotsdev.routine.ui.components.EmptyView
+import com.dotsdev.routine.ui.components.HomeAppBar
 import com.dotsdev.routine.android.ui.dialog.Alert
 import com.dotsdev.routine.resources.MR
 import com.dotsdev.routine.resources.stringResource

@@ -43,12 +43,12 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.dotsdev.routine.android.presentation.AppRoute
-import com.dotsdev.routine.android.ui.components.AppTitledTextField
+import com.dotsdev.routine.ui.components.AppTitledTextField
 import com.dotsdev.routine.android.ui.section.DoneActionAppBar
-import com.dotsdev.routine.android.ui.components.TagSelector
+import com.dotsdev.routine.ui.components.TagSelector
 import com.dotsdev.routine.android.ui.dialog.Alert
 import com.dotsdev.routine.android.ui.dialog.DateTimeSelector
-import com.dotsdev.routine.android.util.Alpha.alphaMedium
+import com.dotsdev.routine.util.Alpha.alphaMedium
 import com.dotsdev.routine.model.TaskItem
 import com.dotsdev.routine.model.TaskItem.Tag.Companion.composeColorOf
 import com.dotsdev.routine.resources.MR

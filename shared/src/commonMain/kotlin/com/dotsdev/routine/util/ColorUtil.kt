@@ -1,10 +1,10 @@
-package com.dotsdev.routine.android.util
+package com.dotsdev.routine.util
 
 import androidx.compose.material3.ColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.compositeOver
-import com.dotsdev.routine.android.util.Alpha.disabled
+import com.dotsdev.routine.util.Alpha.disabled
 
 object Alpha {
     const val High: Float = 1f

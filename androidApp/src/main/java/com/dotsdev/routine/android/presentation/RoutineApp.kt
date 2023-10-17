@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.dotsdev.routine.android.util.backgroundColor
+import com.dotsdev.routine.util.backgroundColor
 import com.dotsdev.routine.model.preferences.AppThemeType
 import com.dotsdev.routine.theme.AppTheme
 import com.dotsdev.routine.theme.DarkColorScheme

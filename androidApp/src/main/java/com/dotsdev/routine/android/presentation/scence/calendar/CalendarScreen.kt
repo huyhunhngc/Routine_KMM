@@ -5,9 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -22,7 +20,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.dotsdev.routine.android.presentation.AppRoute
-import com.dotsdev.routine.android.ui.components.CalendarCardHeader
+import com.dotsdev.routine.ui.components.CalendarCardHeader
 import com.dotsdev.routine.android.ui.section.CalendarTabHeader
 import com.dotsdev.routine.android.ui.section.CalendarTabItem
 import com.dotsdev.routine.android.ui.section.rememberCalendarTabContentScrollState
